@@ -13,8 +13,7 @@ var submitButton = document.querySelector("#submit");
 var goBackButton = document.querySelector("#go-back");
 var clearScoreButton = document.querySelector("#clear-highscores");
 
-// Variable for where question will appear on page
-var questionTitle = document.querySelector("#question-title");
+
 // Set up variables with associations to the four different option spaces on the page
 var option1 = document.querySelector("#option1");
 var option2 = document.querySelector("#option2");
@@ -41,15 +40,23 @@ var quizQuestion = {
 
 var test = document.querySelector("#test");
 
+function createQuestion(question) {
+    let h2 = document.createElement('h2');
+    h2.textContent = question;
+    return h2;
+}
+
+// Variable for where question will appear on page
+var questionTitle = document.querySelector("#question-title");
+questionTitle.appendChild(createQuestion('Question 1'));
+
 function createOption(option) {
     let li = document.createElement('li');
     li.textContent = option;
     return li;
 }
-// Get the options-list UL on the page
-const optionsList = document.querySelector('#options-list');
 
-// Add a new option
+const optionsList = document.querySelector('#options-list');
 optionsList.appendChild(createOption('Option 1'));
 optionsList.appendChild(createOption('Option 2'));
 optionsList.appendChild(createOption('Option 3'));
@@ -57,4 +64,4 @@ optionsList.appendChild(createOption('Option 4'));
 
 
 // Add listener to check function
-test.addEventListener("click", createOption);
+test.addEventListener("click", createQuestion, createOption);
