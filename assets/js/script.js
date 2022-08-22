@@ -11,106 +11,42 @@ var quizSection = document.querySelector("#quiz-section");
 var endGameSection = document.querySelector("#end-game");
 
 
-// MANUAL TEST OF QUESTIONS AND OPTIONS PUSH TO HTML
-var questionInput = "Test question.";
-var option1Input = "Test option1";
-var option2Input = "Test option2";
-var option3Input = "Test option3";
-var option4Input = "Test option4";
-var answerInput = "Test answer";
 
-// Create a variable to house the randomly selected questions, with an associated index for scrambling
+// Create variable objects to house the randomly selected questions, with an associated index for scrambling
 var questions = [
     {
-        index: '0',
-        question: "What does one append to code to prevent spaces from sneaking in to user input?",
+        question: "1: What does one append to code to prevent spaces from sneaking in to user input?",
         options: {
             a: ".trim()",
             b: ".clip()",
             c: ".trim[]",
-            d: ".clip[]"
+            d: ".trim[]"
         },
-        answer: 'a'
+        answer: 0
     },
 
     {
-        index: '1',
-        question: "Question 2",
+        question: "2: What does one append to code to prevent spaces from sneaking in to user input?",
         options: {
-            a: '.trim()',
-            b: '.clip()',
-            c: '.trim[]',
-            d: '.clip[]'
+            a: ".trim()",
+            b: ".clip()",
+            c: ".trim[]",
+            d: ".trim[]"
         },
-        answer: 'b'
+        answer: 1
     },
 
     {
-        index: '2',
-        question: "Question 3",
+        question: "3: What does one append to code to prevent spaces from sneaking in to user input?",
         options: {
-            a: '.trim()',
-            b: '.clip()',
-            c: '.trim[]',
-            d: '.clip[]'
+            a: ".trim()",
+            b: ".clip()",
+            c: ".trim[]",
+            d: ".trim[]"
         },
-        answer: 'c'
-    },
-
-    {
-        index: '3',
-        question: "Question 4",
-        options: {
-            a: '.trim()',
-            b: '.clip()',
-            c: '.trim[]',
-            d: '.clip[]'
-        },
-        answer: 'd'
-    },
-
-    {
-        index: '4',
-        question: "Question 5",
-        options: {
-            a: '.trim()',
-            b: '.clip()',
-            c: '.trim[]',
-            d: '.clip[]'
-        },
-        answer: 'a'
+        answer: 2
     }
 ];
 
-
-
-
-// Select the options-list id in HTML for where the options will populate
-
-var test = document.querySelector("#test");
-
-function createQuestion(question) {
-    let h2 = document.createElement('h2');
-    h2.textContent = question;
-    return h2;
-}
-
-// Variable for where question will appear on page
-var questionTitle = document.querySelector("#question-title");
-questionTitle.appendChild(createQuestion('Question 1'));
-
-function createOption(option) {
-    let li = document.createElement('li');
-    li.textContent = option;
-    return li;
-}
-
-const optionsList = document.querySelector('#options-list');
-optionsList.appendChild(createOption('Option 1'));
-optionsList.appendChild(createOption('Option 2'));
-optionsList.appendChild(createOption('Option 3'));
-optionsList.appendChild(createOption('Option 4'));
-
-
-// Add listener to check function
-test.addEventListener("click", createQuestion, createOption);
+// In order to access the correct question - the index must be applied to the first level since that's the first level array
+console.log(questions[0].question);
