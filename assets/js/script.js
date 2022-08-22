@@ -48,5 +48,15 @@ var questions = [
     }
 ];
 
+
+var testButton = document.querySelector("#test");
+
 // In order to access the correct question - the index must be applied to the first level since that's the first level array
-console.log(questions[0].question);
+// Set up a function that will for each possible item in the questions array, project in turn
+function askQuestion() {
+    for (var i = 0; i < questions.length; i++) {
+        console.log(questions[i].question);
+    }
+}
+
+testButton.addEventListener("click", askQuestion);
