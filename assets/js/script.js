@@ -10,53 +10,75 @@ var startSection = document.querySelector("#start");
 var quizSection = document.querySelector("#quiz-section");
 var endGameSection = document.querySelector("#end-game");
 
-
+var optionsList = document.querySelector("#options-list");
 
 // Create variable objects to house the randomly selected questions, with an associated index for scrambling
 var questions = [
     {
         question: "1: What does one append to code to prevent spaces from sneaking in to user input?",
-        options: {
-            a: ".trim()",
-            b: ".clip()",
-            c: ".trim[]",
-            d: ".trim[]"
-        },
+        options: [
+            ".trim()",
+            ".clip()",
+            ".trim[]",
+            ".trim[]"
+        ],
         answer: 0
     },
 
     {
         question: "2: What does one append to code to prevent spaces from sneaking in to user input?",
-        options: {
-            a: ".trim()",
-            b: ".clip()",
-            c: ".trim[]",
-            d: ".trim[]"
-        },
+        options: [
+            ".trim()",
+            ".clip()",
+            ".trim[]",
+            ".trim[]"
+        ],
         answer: 1
     },
 
     {
         question: "3: What does one append to code to prevent spaces from sneaking in to user input?",
-        options: {
-            a: ".trim()",
-            b: ".clip()",
-            c: ".trim[]",
-            d: ".trim[]"
-        },
+        options: [
+            ".trim()",
+            ".clip()",
+            ".trim[]",
+            ".trim[]"
+        ],
         answer: 2
     }
 ];
-
 
 var testButton = document.querySelector("#test");
 
 // In order to access the correct question - the index must be applied to the first level since that's the first level array
 // Set up a function that will for each possible item in the questions array, project in turn
+
 function askQuestion() {
-    for (var i = 0; i < questions.length; i++) {
-        console.log(questions[i].question);
+// When button is clicked, show the first question prompt in the list
+    var currQuestion = questions[0].question;
+    var postQuestion = document.body.children[2].appendChild(document.createElement('h2'));
+    postQuestion.textContent = currQuestion;
+
+    var currOptions = questions[0].options;
+
+    var optionsLength = currOptions.length;
+    var optionItem;
+// Then for each option in the currOptions array, post it as a new list item
+    for (i = 0; i < optionsLength; i++) {
+        optionItem = document.createElement('li');
+        optionItem.className = 'option';
+        optionItem.innerHTML = currOptions[i];
+        document.getElementById('options-list').appendChild(optionItem);
     }
+
+
+
+    // For each option that is found for that question, create a new li that has the corresponding text content
+
 }
 
+
 testButton.addEventListener("click", askQuestion);
+
+
+var postQuestion = document.body.children[2].appendChild(document.createElement('h2'));
