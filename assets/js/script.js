@@ -1,40 +1,89 @@
 // Timed Coding Quiz
 // Last Updated by Arielle Schlickman-Elak Aug 21 2022
 
-// Variables for all components of HTML page
+// Variables for sections at top of page
 var viewHighscores = document.querySelector("#view-highscores");
 var timer = document.querySelector("#timer");
 
-var validationSection = document.querySelector("#validation");
+// Variables for each section to display depending upon point in game
+var startSection = document.querySelector("#start");
+var quizSection = document.querySelector("#quiz-section");
 var endGameSection = document.querySelector("#end-game");
-var initialsArea = document.querySelector("#initials-area");
-var initials = document.querySelector("initials");
-var submitButton = document.querySelector("#submit");
-var goBackButton = document.querySelector("#go-back");
-var clearScoreButton = document.querySelector("#clear-highscores");
 
 
-// Set up variables with associations to the four different option spaces on the page
-var option1 = document.querySelector("#option1");
-var option2 = document.querySelector("#option2");
-var option3 = document.querySelector("#option3");
-var option4 = document.querySelector("#option4");
-
-
+// MANUAL TEST OF QUESTIONS AND OPTIONS PUSH TO HTML
 var questionInput = "Test question.";
 var option1Input = "Test option1";
 var option2Input = "Test option2";
 var option3Input = "Test option3";
 var option4Input = "Test option4";
-
 var answerInput = "Test answer";
 
-// Create a variable to house the randomly selected question
-var quizQuestion = {
-    question: questionInput.value,
-    options: [option1Input, option2Input, option3Input, option4Input],
-    answer: answerInput
-};
+// Create a variable to house the randomly selected questions, with an associated index for scrambling
+var questions = [
+    {
+        index: '0',
+        question: "What does one append to code to prevent spaces from sneaking in to user input?",
+        options: {
+            a: ".trim()",
+            b: ".clip()",
+            c: ".trim[]",
+            d: ".clip[]"
+        },
+        answer: 'a'
+    },
+
+    {
+        index: '1',
+        question: "Question 2",
+        options: {
+            a: '.trim()',
+            b: '.clip()',
+            c: '.trim[]',
+            d: '.clip[]'
+        },
+        answer: 'b'
+    },
+
+    {
+        index: '2',
+        question: "Question 3",
+        options: {
+            a: '.trim()',
+            b: '.clip()',
+            c: '.trim[]',
+            d: '.clip[]'
+        },
+        answer: 'c'
+    },
+
+    {
+        index: '3',
+        question: "Question 4",
+        options: {
+            a: '.trim()',
+            b: '.clip()',
+            c: '.trim[]',
+            d: '.clip[]'
+        },
+        answer: 'd'
+    },
+
+    {
+        index: '4',
+        question: "Question 5",
+        options: {
+            a: '.trim()',
+            b: '.clip()',
+            c: '.trim[]',
+            d: '.clip[]'
+        },
+        answer: 'a'
+    }
+];
+
+
+
 
 // Select the options-list id in HTML for where the options will populate
 
