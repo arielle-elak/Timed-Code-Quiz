@@ -1,3 +1,6 @@
+<!--Timed Coding Quiz
+Last Updated by Arielle Schlickman-Elak Aug 21 2022-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +11,31 @@
     <title>Timed Code Quiz</title>
 </head>
 <body>
+
+<header>
+    <p id = "viewHighscores"><a href="">View Highscores</a></p>
+    <p id = "timer"></p>
+</header>
+
+<!--Question will appear in h2-->
+<h2 id ="questionTitle"></h2>
+
+<!--Possible answers will appear in list-->
+    <ul id ="optionsList">
+        <li id="option1"></li>
+        <li id="option2"></li>
+        <li id="option3"></li>
+        <li id="option4"></li>
+    </ul>
+
+<!--Validation will show if chosen answer was correct or incorrect-->
+<section id ="validation">
+</section>
+
+<!--Section will only show upon conclusion of game-->
+<section id ="endGame">
+<h2 id="completeTitle">Quiz Complete</h2>
+</section>
 
 <script src="/assets/js/script.js"></script>
 </body>
