@@ -13,28 +13,42 @@ Last Updated by Arielle Schlickman-Elak Aug 21 2022-->
 <body>
 
 <header>
-    <p id = "viewHighscores"><a href="">View Highscores</a></p>
+    <p id = "view-highscores"><a href="">View Highscores</a></p>
     <p id = "timer"></p>
 </header>
 
-<!--Question will appear in h2-->
-<h2 id ="questionTitle"></h2>
-
-<!--Possible answers will appear in list-->
-    <ul id ="optionsList">
-        <li id="option1"></li>
-        <li id="option2"></li>
-        <li id="option3"></li>
-        <li id="option4"></li>
-    </ul>
-
+<!--Quiz Section will appear after start button is pressed-->
+<section id = "quiz-section">
+    <!--Question will appear in h2-->
+    <h2 id ="question-title"></h2>
+        <!--Possible answers will appear in list-->
+        <ul id ="options-list">
+            <li id="option1"><button></button></li>
+            <li id="option2"><button></button></li>
+            <li id="option3"><button></button></li>
+            <li id="option4"><button></button></li>
+        </ul>
 <!--Validation will show if chosen answer was correct or incorrect-->
-<section id ="validation">
+    <section id ="validation">
+    </section>
 </section>
 
-<!--Section will only show upon conclusion of game-->
-<section id ="endGame">
-<h2 id="completeTitle">Quiz Complete</h2>
+
+
+<!--Section will only show upon conclusion of game. New score added as entry to local data-->
+<section id ="end-game">
+    <h2>Quiz Complete</h2>
+    <div id = "initials-area">
+        <p>Enter your initials:</p>
+        <textarea id="initials"></textarea>
+    </div>
+
+<!--Highscores area will only appear if Submit button is clicked on end-game screen-->
+<section id = "highscores">
+    <!--Highscores taken from local data will be shown here in order of highest to lowest-->
+        <h2>Highscores</h2>
+        <ol>
+        </ol>
 </section>
 
 <script src="/assets/js/script.js"></script>
