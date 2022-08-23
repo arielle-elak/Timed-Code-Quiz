@@ -9,8 +9,12 @@ var timer = document.querySelector("#timer");
 var startSection = document.querySelector("#start");
 var quizSection = document.querySelector("#quiz-section");
 var endGameSection = document.querySelector("#end-game");
-
 var optionsList = document.querySelector("#options-list");
+
+// Variables for hiding and showing sections
+var showQuizSection = document.querySelector("#start-quiz");
+var showEndGame = document.querySelector("#end-game");
+var showHighscores = document.querySelector("#highscores");
 
 // Create variable objects to house the randomly selected questions, with an associated index for scrambling
 var questions = [
@@ -48,7 +52,7 @@ var questions = [
     }
 ];
 
-var testButton = document.querySelector("#test");
+var startButton = document.querySelector("#start-quiz");
 
 // In order to access the correct question - the index must be applied to the first level since that's the first level array
 // Set up a function that will for each possible item in the questions array, project in turn
@@ -70,15 +74,10 @@ function askQuestion() {
         optionItem.innerHTML = currOptions[i];
         document.getElementById('options-list').appendChild(optionItem);
     }
-
-
-
-    // For each option that is found for that question, create a new li that has the corresponding text content
-
 }
 
 
-testButton.addEventListener("click", askQuestion);
+startButton.addEventListener("click", askQuestion, showQuizSection);
 
 
 var postQuestion = document.body.children[2].appendChild(document.createElement('h2'));
