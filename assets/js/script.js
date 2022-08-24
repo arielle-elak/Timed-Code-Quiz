@@ -190,7 +190,7 @@ function askQuestion() {
       className: "active-button",
       id: itemNumber,
       onclick: function () {
-        console.log("Clicked!")
+        console.log("Clicked " + newLi.id);
       }
 
     })
