@@ -35,12 +35,12 @@ body {
     font-weight: bold;
 }
 
-#active-button {
+.active-button {
     background-color: grey;
     color: black;
 }
 
-#active-button :hover {
+.active-button:hover {
     background-color: purple;
     color: white;
     cursor: grab;

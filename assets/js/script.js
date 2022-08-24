@@ -178,12 +178,26 @@ function askQuestion() {
   // From the options object, pull the entries
   var answers = Object.entries(questions.question1.options);
   // For each entry in answers, log the key and corresponding value
+  // If the answer and key match, then it's correct
+  var itemNumber = 0;
   answers.forEach(([key, value]) => {
     console.log(value);
+    console.log(key);
+    itemNumber++;
     // Create a new list item
     var newLi = document.createElement("li");
+    Object.assign(newLi, {
+      className: "active-button",
+      id: itemNumber,
+      onclick: function () {
+        console.log("Clicked!")
+      }
+
+    })
+
     newLi.textContent = value;
     optionsList.appendChild(newLi);
+
   });
 }
 
@@ -252,3 +266,5 @@ backButton.addEventListener("click", backStart);
 
 // Clear Highscores Button
 clearButton.addEventListener("click", clearHighscores);
+
+userAnswer1.addEventListener("click", test);
