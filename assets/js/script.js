@@ -77,7 +77,7 @@ function askQuestion() {
 }
 
 
-startButton.addEventListener("click", askQuestion, showQuizSection);
+startButton.addEventListener("click", askQuestion);
 
 
 var postQuestion = document.body.children[2].appendChild(document.createElement('h2'));
