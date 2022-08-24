@@ -59,8 +59,20 @@ function timerScore() {
     }, 1000);
 }
 
-//TEST LISTENER FOR TIMER
-startButton.addEventListener("click", timerScore);
+function showQuizSection() {
+  // Hide start screen
+  startScreen.setAttribute("style", "display: none");
+  // Show quiz screen
+  quizScreen.setAttribute("style", "display: block");
+}
+
+function startQuiz() {
+  // Start the timer
+  timerScore();
+  // Hide the start screen and show the quiz screen
+  showQuizSection()
+}
+
 
 
 
@@ -72,7 +84,11 @@ startButton.addEventListener("click", timerScore);
 // 4) *~LISTENERS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-/*
+
+
+//LISTENER FOR TIMER
+startButton.addEventListener("click", timerScore);
+
 // Start the Quiz Button
 startButton.addEventListener("click", startQuiz);
 
@@ -92,4 +108,3 @@ backButton.addEventListener("click", backStart);
 
 // Clear Highscores Button
 clearButton.addEventListener("click", clearHighscores);
-*/
