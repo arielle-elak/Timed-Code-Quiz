@@ -12,6 +12,8 @@ var startScreen = document.querySelector("#start");
 var startButton = document.querySelector("#start-quiz");
 
 // Main quiz section selectors
+// Selecting the empty h2 field where the question title will appear
+var pageQuestion = document.body.children[2].children[0];
 var quizScreen = document.querySelector("#quiz-section");
 var questionTitle = document.querySelector("#question-title");
 const optionsList = document.querySelector("#options-list");
@@ -39,6 +41,7 @@ var clearButton = document.querySelector("#clear-highscores");
 // Each question object contains a question Title, options, and the answer index - referencing the location of the correct answer in the options object
 // The options object contains sub objects for each possible answer
 var questions = {
+
   question1: {
     questionTitle: "1: What does one append to code to prevent spaces from sneaking in to user input?",
     options: {
@@ -164,21 +167,22 @@ function checkAnswer() {
 }
 */
 
+
+
+
  // When button is clicked, show the first question prompt in the list
-function askQuestion() {
-  // Current question's index value is q
-  var currQuestion = questions[0].question;
-  // Selecting the empty h2 field where the question title will appear
-  var pageQuestion = document.body.children[2].children[0];
-  // Sets the text content of the h2 tag to equal the text of the current quiz question in the questions object
-  pageQuestion.textContent = currQuestion;
+function askQuestion1() {
 
-   // Retrieve the values of the options object
-   var currOptions = questions[0].options.keys(options);
+  // From the questionTitle key, pull the value
 
+  // From the options object, pull the values
+  var answers = Object.entries(questions.question1.options);
 
-   var pageQuestion = document.body.children[2].children[0];
+  answers.forEach(([key, value]) => {
+    console.log(value);
+  });
 }
+
 
 
 
@@ -194,7 +198,7 @@ function startQuiz() {
   // Start the timer
   timerScore();
   // Start question asking loop function
-  askQuestion();
+  askQuestion1();
 }
 
 // Either when the timer reaches 0 or user has answered all questions
