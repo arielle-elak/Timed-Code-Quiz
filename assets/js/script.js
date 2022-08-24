@@ -1,83 +1,215 @@
-// Timed Coding Quiz
-// Last Updated by Arielle Schlickman-Elak Aug 21 2022
+// 1) *~SELECTORS~*
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// Variables for sections at top of page
-var viewHighscores = document.querySelector("#view-highscores");
-var timer = document.querySelector("#timer");
+// Top bar selectors
+var scoreLink = document.querySelector("#view-highscores");
+var topTimer = document.querySelector("#timer");
+var timer;
+var timeLeft = 60
 
-// Variables for each section to display depending upon point in game
-var startSection = document.querySelector("#start");
-var quizSection = document.querySelector("#quiz-section");
-var endGameSection = document.querySelector("#end-game");
-var optionsList = document.querySelector("#options-list");
-
-// Variables for hiding and showing sections
-var showQuizSection = document.querySelector("#start-quiz");
-var showEndGame = document.querySelector("#end-game");
-var showHighscores = document.querySelector("#highscores");
-
-// Create variable objects to house the randomly selected questions, with an associated index for scrambling
-var questions = [
-    {
-        question: "1: What does one append to code to prevent spaces from sneaking in to user input?",
-        options: [
-            ".trim()",
-            ".clip()",
-            ".trim[]",
-            ".trim[]"
-        ],
-        answer: 0
-    },
-
-    {
-        question: "2: What does one append to code to prevent spaces from sneaking in to user input?",
-        options: [
-            ".trim()",
-            ".clip()",
-            ".trim[]",
-            ".trim[]"
-        ],
-        answer: 1
-    },
-
-    {
-        question: "3: What does one append to code to prevent spaces from sneaking in to user input?",
-        options: [
-            ".trim()",
-            ".clip()",
-            ".trim[]",
-            ".trim[]"
-        ],
-        answer: 2
-    }
-];
-
+// Starting screen selectors
+var startScreen = document.querySelector("#start");
 var startButton = document.querySelector("#start-quiz");
 
-// In order to access the correct question - the index must be applied to the first level since that's the first level array
-// Set up a function that will for each possible item in the questions array, project in turn
+// Main quiz section selectors
+var quizScreen = document.querySelector("#quiz-section");
+var questionTitle = document.querySelector("#question-title");
+var optionsList = document.querySelector("#options-list");
+var validation = document.querySelector("#validation");
+var isWin = false;
 
-function askQuestion() {
-// When button is clicked, show the first question prompt in the list
-    var currQuestion = questions[0].question;
-    var postQuestion = document.body.children[2].appendChild(document.createElement('h2'));
-    postQuestion.textContent = currQuestion;
+// Game over screen selectors
+var endGameScreen = document.querySelector("#end-game");
+var initialsArea = document.querySelector("#initials-area");
+var initialsText = document.querySelector("#initials");
+var submitButton = document.querySelector("#submit");
 
-    var currOptions = questions[0].options;
+// High score screen selectors
+var highscoreScreen = document.querySelector("#highscores");
+var backButton = document.querySelector("#go-back");
+var clearButton = document.querySelector("#clear-highscores");
 
-    var optionsLength = currOptions.length;
-    var optionItem;
-// Then for each option in the currOptions array, post it as a new list item
-    for (i = 0; i < optionsLength; i++) {
-        optionItem = document.createElement('li');
-        optionItem.className = 'option';
-        optionItem.innerHTML = currOptions[i];
-        document.getElementById('options-list').appendChild(optionItem);
+
+// 2) *~QUESTIONS LIST~*
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// Question title stored in question value
+// Possible answers stored in options array
+// Answer index of options array stored in answer
+var questions = [
+  {
+      question: "1: What does one append to code to prevent spaces from sneaking in to user input?",
+      options: [
+          ".trim()",
+          ".clip()",
+          ".trim[]",
+          ".trim[]"
+      ],
+      answer: 0
+  },
+
+  {
+      question: "2: What does one append to code to prevent spaces from sneaking in to user input?",
+      options: [
+          ".trim()",
+          ".clip()",
+          ".trim[]",
+          ".trim[]"
+      ],
+      answer: 3
+  },
+
+  {
+    question: "2: What does one append to code to prevent spaces from sneaking in to user input?",
+    options: [
+        ".trim()",
+        ".clip()",
+        ".trim[]",
+        ".trim[]"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "2: What does one append to code to prevent spaces from sneaking in to user input?",
+    options: [
+        ".trim()",
+        ".clip()",
+        ".trim[]",
+        ".trim[]"
+    ],
+    answer: 2
+  },
+
+  {
+      question: "3: What does one append to code to prevent spaces from sneaking in to user input?",
+      options: [
+          ".trim()",
+          ".clip()",
+          ".trim[]",
+          ".trim[]"
+      ],
+      answer: 2
+  }
+];
+
+
+
+// 3) *~FUNCTIONS~*
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// TIMER
+function timerScore() {
+  // Sets timer
+  timer = setInterval(function() {
+    timeLeft--;
+    topTimer.textContent = timeLeft;
+    if (timeLeft >= 0) {
+      // Tests if win condition is met
+      if (isWin && timeLeft > 0) {
+        // Clears interval and stops timer
+        clearInterval(timer);
+        winGame();
+      }
     }
+    // Tests if time has run out
+    if (timeLeft === 0) {
+      // Clears interval
+      clearInterval(timer);
+      loseGame();
+    }
+  }, 1000);
 }
 
 
-startButton.addEventListener("click", askQuestion);
+// When the Start Quiz button is pressed
+function showQuizSection() {
+  // Hide start screen
+  startScreen.setAttribute("style", "display: none");
+  // Show quiz screen
+  quizScreen.setAttribute("style", "display: block");
+}
+
+function checkAnswer(userAnswer) {
+  // Check user answer against correct answer
+}
+
+function askQuestion() {
+  // When button is clicked, show the first question prompt in the list
+  var postQuestion = document.body.children[2].appendChild(document.createElement('h2'));
+  var currQuestion = questions[0].question;
+  var postQuestion = document.body.children[2].appendChild(document.createElement('h2'));
+  postQuestion.textContent = currQuestion;
+
+  var currOptions = questions[0].options;
+
+  var optionsLength = currOptions.length;
+  var optionItem;
+  // Then for each option in the currOptions array, post it as a new list item
+    for (i = 0; i < optionsLength; i++) {
+      optionItem = document.createElement('li');
+      optionItem.className = '.option';
+      optionItem.innerHTML = currOptions[i];
+      document.getElementById('#options-list').appendChild(optionItem);
+      }
+  }
+
+// When the Start Quiz Button is pressed
+function startQuiz() {
+  // Hide the start screen and show the quiz screen
+  showQuizSection();
+  // Start the timer
+  timerScore();
+  // Start question asking loop function
+  askQuestion();
+}
+
+// Either when the timer reaches 0 or user has answered all questions
+function endQuiz() {
+  // Hide the timer
+  timer.setAttribute("style", "display: none");
+  // Hide the view highscores link
+  scoreLink.setAttribute("style", "display: none");
+  // Show the End Game Screen
+  endGameScreen.setAttribute("style", "display: block");
+}
+
+// When the Submit button is pressed
+function showHighscores() {
+  // Hide the End Game Screen
+  endGameScreen.setAttribute("style", "display: block");
+  // Show the Highscores Screen
+  highscoreScreen.setAttribute("style", "display: block");
+}
 
 
-var postQuestion = document.body.children[2].appendChild(document.createElement('h2'));
+
+
+
+
+
+
+
+// 4) *~LISTENERS~*
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+// Start the Quiz Button
+startButton.addEventListener("click", startQuiz);
+
+// Click Possible Answer Button
+optionsList.addEventListener("click", checkAnswer);
+
+// Log Player Input in Initials Field
+initials.addEventListener("keydown", function (event) {
+    var initialsText = event.key;
+});
+
+// Initials Submit Button
+submitButton.addEventListener("click", logHighscore);
+
+// Go Back Button
+backButton.addEventListener("click", backStart);
+
+// Clear Highscores Button
+clearButton.addEventListener("click", clearHighscores);
