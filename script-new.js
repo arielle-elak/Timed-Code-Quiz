@@ -1,6 +1,10 @@
+// 1) *~SELECTORS~*
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 // Top bar selectors
 var scoreLink = document.querySelector("#view-highscores");
 var timer = document.querySelector("timer");
+var secondsLeft = 60;
 
 // Starting screen selectors
 var startScreen = document.querySelector("#start");
@@ -24,7 +28,45 @@ var backButton = document.querySelector("#go-back");
 var clearButton = document.querySelector("#clear-highscores");
 
 
-// *~LISTENERS~*
+// 2) *~QUESTIONS LIST~*
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+
+
+
+// 3) *~FUNCTIONS~*
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// TIMER
+function timerScore() {
+    // Sets interval in variable
+    var timerInterval = setInterval(function() {
+      secondsLeft--;
+      timer.textContent = secondsLeft;
+
+      if(secondsLeft === 0) {
+        // Stops execution of action at set interval
+        clearInterval(timerInterval);
+        // Calls function to show the end game
+        showEndScreen();
+      } else if (!answer) {
+        secondsLeft =- 10;
+      } else {
+        secondsLeft =+ 10;
+      }
+
+    }, 1000);
+  }
+
+
+
+
+
+
+
+// 4) *~LISTENERS~*
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 // Start the Quiz Button
 startButton.addEventListener("click", startQuiz);
