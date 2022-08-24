@@ -24,21 +24,23 @@ body {
 /*==============================
     Question Button Behavior
 ==============================*/
-
-/*Select all li children of the ul that contains all the possible answers*/
-ul#options-list > * {
-    background-color: grey;
-    color: black;
+#options-list > * {
+    text-decoration: none;
+    list-style: none;
     border-radius: 10px;
     width: 5rem;
     padding: 1rem;
     margin: .5rem;
-    list-style: none;
     text-align: center;
     font-weight: bold;
 }
 
-ul#options-list > *:hover {
+#active-button {
+    background-color: grey;
+    color: black;
+}
+
+#active-button :hover {
     background-color: purple;
     color: white;
     cursor: grab;

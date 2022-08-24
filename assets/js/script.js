@@ -14,14 +14,9 @@ var startButton = document.querySelector("#start-quiz");
 // Main quiz section selectors
 var quizScreen = document.querySelector("#quiz-section");
 var questionTitle = document.querySelector("#question-title");
-var optionsList = document.querySelector("#options-list");
+const optionsList = document.querySelector("#options-list");
 var validation = document.querySelector("#validation");
-
-// Possible places for user to click to select their guess
-var userGuess0 = document.querySelector(".option0")
-var userGuess1 = document.querySelector(".option1")
-var userGuess2 = document.querySelector(".option2")
-var userGuess3 = document.querySelector(".option3")
+var answersLength = 4;
 
 var isWin = false;
 
@@ -40,65 +35,66 @@ var clearButton = document.querySelector("#clear-highscores");
 // 2) *~QUESTIONS LIST~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// Question title stored in question value
-// Possible answers stored in options array
-// Answer index of options array stored in answer
-var questions = [
-  {
-      question: "1: What does one append to code to prevent spaces from sneaking in to user input?",
-      options: [
-          ".trim()",
-          ".clip()",
-          ".trim[]",
-          ".trim[]"
-      ],
-      answer: 0
+// Questions stored in nested object
+// Each question object contains a question Title, options, and the answer index - referencing the location of the correct answer in the options object
+// The options object contains sub objects for each possible answer
+var questions = {
+  question1: {
+    questionTitle: "1: What does one append to code to prevent spaces from sneaking in to user input?",
+    options: {
+      0: "answer1",
+      1: "answer2",
+      2: "answer3",
+      3: "answer4",
+    },
+    answerIndex: 0,
   },
 
-  {
-      question: "2: What does one append to code to prevent spaces from sneaking in to user input?",
-      options: [
-          ".trim()",
-          ".clip()",
-          ".trim[]",
-          ".trim[]"
-      ],
-      answer: 3
+  question2: {
+    questionTitle: "2: What does one append to code to prevent spaces from sneaking in to user input?",
+    options: {
+      0: "answer1",
+      1: "answer2",
+      2: "answer3",
+      3: "answer4",
+    },
+    answerIndex: 3,
   },
 
-  {
-    question: "2: What does one append to code to prevent spaces from sneaking in to user input?",
-    options: [
-        ".trim()",
-        ".clip()",
-        ".trim[]",
-        ".trim[]"
-    ],
-    answer: 1
+  question3: {
+    questionTitle: "3: What does one append to code to prevent spaces from sneaking in to user input?",
+    options: {
+      0: "answer1",
+      1: "answer2",
+      2: "answer3",
+      3: "answer4",
+    },
+    answerIndex: 3,
   },
 
-  {
-    question: "2: What does one append to code to prevent spaces from sneaking in to user input?",
-    options: [
-        ".trim()",
-        ".clip()",
-        ".trim[]",
-        ".trim[]"
-    ],
-    answer: 2
+  question4: {
+    questionTitle: "4: What does one append to code to prevent spaces from sneaking in to user input?",
+    options: {
+      0: "answer1",
+      1: "answer2",
+      2: "answer3",
+      3: "answer4",
+    },
+    answerIndex: 2,
   },
 
-  {
-      question: "3: What does one append to code to prevent spaces from sneaking in to user input?",
-      options: [
-          ".trim()",
-          ".clip()",
-          ".trim[]",
-          ".trim[]"
-      ],
-      answer: 2
+  question5: {
+    questionTitle: "5: What does one append to code to prevent spaces from sneaking in to user input?",
+    options: {
+      0: "answer1",
+      1: "answer2",
+      2: "answer3",
+      3: "answer4",
+    },
+    answerIndex: 1,
   }
-];
+};
+
 
 
 
@@ -168,41 +164,29 @@ function checkAnswer() {
 }
 */
 
-
  // When button is clicked, show the first question prompt in the list
 function askQuestion() {
-
-  // DOM selects the question-title h2
-  var pageQuestion = document.body.children[2].children[0];
-
-  // Randomly selected question's index is i
+  // Current question's index value is q
   var currQuestion = questions[0].question;
-
+  // Selecting the empty h2 field where the question title will appear
+  var pageQuestion = document.body.children[2].children[0];
   // Sets the text content of the h2 tag to equal the text of the current quiz question in the questions object
   pageQuestion.textContent = currQuestion;
 
-  // DOM selects the options-list ul
-  var answerUl = document.body.children[2].children[1];
+   // Retrieve the values of the options object
+   var currOptions = questions[0].options.keys(options);
 
-  // Text content of the answers will be drawn from the options array within the questions object
-  var currAnswers = questions[0].options;
 
-  // Length of the list of answers to equal the length of options array
-  var optionsLength = currAnswers.length;
+   var pageQuestion = document.body.children[2].children[0];
+}
 
-  var optionItem;
-  // Then for each option in the currAnswers array, post it as a new list item
-    for (i = 0; i < optionsLength; i++) {
-      optionItem = document.createElement('li');
-      optionClass = "option" + [i];
-      optionItem.classList.add(optionClass);
-      optionItem.textContent = currAnswers[i];
-      optionsList.appendChild(optionItem);
-      }
-  }
+
 
 // When the Start Quiz Button is pressed
 function startQuiz() {
+
+  // Get the options ul ready to have text injected
+
   // Hide the start screen and show the quiz screen
   showQuizSection();
 
@@ -233,7 +217,9 @@ function showHighscores() {
 
 
 
-
+function test() {
+  console.log("It worked!")
+}
 
 
 
@@ -258,9 +244,3 @@ backButton.addEventListener("click", backStart);
 
 // Clear Highscores Button
 clearButton.addEventListener("click", clearHighscores);
-
-// Watch for clicks on the four possible options
-userGuess0.addEventListener("click", checkAnswer);
-userGuess1.addEventListener("click", checkAnswer);
-userGuess2.addEventListener("click", checkAnswer);
-userGuess3.addEventListener("click", checkAnswer);
