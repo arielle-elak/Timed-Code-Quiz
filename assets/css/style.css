@@ -36,7 +36,9 @@ section#highscores {
 /*==============================
     Question Button Behavior
 ==============================*/
-.option {
+
+/*Select all li children of the ul that contains all the possible answers*/
+ul#options-list > * {
     background-color: grey;
     color: black;
     border-radius: 10px;
@@ -48,7 +50,7 @@ section#highscores {
     font-weight: bold;
 }
 
-.option:hover {
+ul#options-list > *:hover {
     background-color: purple;
     color: white;
     cursor: grab;
