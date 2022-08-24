@@ -145,20 +145,30 @@ function checkAnswer() {
 
 function askQuestion() {
   // When button is clicked, show the first question prompt in the list
+
+  // DOM selects the question-title h2
   var pageQuestion = document.body.children[2].children[0];
   var currQuestion = questions[0].question;
 
+  // Sets the text content of the h2 tag to equal the text of the current quiz question in the questions object
   pageQuestion.textContent = currQuestion;
 
-  var currOptions = questions[0].options;
-  var optionsLength = currOptions.length;
+  // DOM selects the options-list ul
+  var answerUl = document.body.children[2].children[1];
+
+  // Text content of the answers will be drawn from the options array within the questions object
+  var currAnswers = questions[0].options;
+
+  // Length of the list of answers to equal the length of options array
+  var optionsLength = currAnswers.length;
+
   var optionItem;
   // Then for each option in the currOptions array, post it as a new list item
     for (i = 0; i < optionsLength; i++) {
       optionItem = document.createElement('li');
       optionItem.className = '.option';
-      optionItem.innerHTML = currOptions[i];
-      document.getElementById('#options-list').appendChild(optionItem);
+      optionItem.textContent = currAnswers[i];
+      optionsList.appendChild(optionItem);
       }
   }
 
