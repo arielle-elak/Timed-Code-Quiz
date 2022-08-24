@@ -111,13 +111,15 @@ function timerScore() {
         clearInterval(timer);
         winGame();
       }
+
+      // Tests if time has run out
+      if (timeLeft === 0) {
+        // Clears interval
+        clearInterval(timer);
+        gameOver();
+      }
     }
-    // Tests if time has run out
-    if (timeLeft === 0) {
-      // Clears interval
-      clearInterval(timer);
-      loseGame();
-    }
+// Set time interval to 1 second (1000 milliseconds)
   }, 1000);
 }
 
@@ -130,19 +132,25 @@ function showQuizSection() {
   quizScreen.setAttribute("style", "display: block");
 }
 
-function checkAnswer(userAnswer) {
+function checkAnswer() {
   // Check user answer against correct answer
+  if (userAnswer !== answer) {
+    timeLeft -= 10;
+    validation.textContent = "Sorry! Wrong answer."
+  } else if (userAnswer === answer) {
+    timeLeft += 10;
+    validation.textContent = "Correct!"
+  }
 }
 
 function askQuestion() {
   // When button is clicked, show the first question prompt in the list
-  var postQuestion = document.body.children[2].appendChild(document.createElement('h2'));
+  var pageQuestion = document.body.children[2].children[0];
   var currQuestion = questions[0].question;
-  var postQuestion = document.body.children[2].appendChild(document.createElement('h2'));
-  postQuestion.textContent = currQuestion;
+
+  pageQuestion.textContent = currQuestion;
 
   var currOptions = questions[0].options;
-
   var optionsLength = currOptions.length;
   var optionItem;
   // Then for each option in the currOptions array, post it as a new list item
