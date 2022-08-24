@@ -22,3 +22,26 @@ var submitButton = document.querySelector("#submit");
 var highscoreScreen = document.querySelector("#highscores");
 var backButton = document.querySelector("#go-back");
 var clearButton = document.querySelector("#clear-highscores");
+
+
+// *~LISTENERS~*
+
+// Start the Quiz Button
+startButton.addEventListener("click", startQuiz);
+
+// Click Possible Answer Button
+optionsList.addEventListener("click", checkAnswer);
+
+// Log Player Input in Initials Field
+initials.addEventListener("keydown", function (event) {
+    var initialsText = event.key;
+});
+
+// Initials Submit Button
+submitButton.addEventListener("click", logHighscore);
+
+// Go Back Button
+backButton.addEventListener("click", backStart);
+
+// Clear Highscores Button
+clearButton.addEventListener("click", clearHighscores);
