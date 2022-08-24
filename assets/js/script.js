@@ -143,8 +143,9 @@ function checkAnswer() {
   }
 }
 
+
+ // When button is clicked, show the first question prompt in the list
 function askQuestion() {
-  // When button is clicked, show the first question prompt in the list
 
   // DOM selects the question-title h2
   var pageQuestion = document.body.children[2].children[0];
@@ -166,7 +167,7 @@ function askQuestion() {
   // Then for each option in the currOptions array, post it as a new list item
     for (i = 0; i < optionsLength; i++) {
       optionItem = document.createElement('li');
-      optionItem.className = '.option';
+      optionItem.classList.add('option');
       optionItem.textContent = currAnswers[i];
       optionsList.appendChild(optionItem);
       }
