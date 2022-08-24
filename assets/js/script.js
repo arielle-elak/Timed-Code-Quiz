@@ -16,7 +16,13 @@ var quizScreen = document.querySelector("#quiz-section");
 var questionTitle = document.querySelector("#question-title");
 var optionsList = document.querySelector("#options-list");
 var validation = document.querySelector("#validation");
-var userGuess = document.querySelector("#option")
+
+// Possible places for user to click to select their guess
+var userGuess0 = document.querySelector(".option0")
+var userGuess1 = document.querySelector(".option1")
+var userGuess2 = document.querySelector(".option2")
+var userGuess3 = document.querySelector(".option3")
+
 var isWin = false;
 
 // Game over screen selectors
@@ -128,9 +134,8 @@ function timerScore() {
 // When the Start Quiz button is pressed
 function showQuizSection() {
   // Hide start screen
-  startScreen.setAttribute("style", "display: none");
-  // Show quiz screen
-  quizScreen.setAttribute("style", "display: block");
+  startScreen.textContent = '';
+  // Show quiz screen (generateElement!!!!)
 }
 
  /*  // Check user answer against correct answer
@@ -200,6 +205,8 @@ function askQuestion() {
 function startQuiz() {
   // Hide the start screen and show the quiz screen
   showQuizSection();
+
+  // These listeners won't be able to initiate
   // Start the timer
   timerScore();
   // Start question asking loop function
@@ -209,19 +216,18 @@ function startQuiz() {
 // Either when the timer reaches 0 or user has answered all questions
 function endQuiz() {
   // Hide the timer
-  timer.setAttribute("style", "display: none");
+  timer.textContent = '';
   // Hide the view highscores link
-  scoreLink.setAttribute("style", "display: none");
-  // Show the End Game Screen
-  endGameScreen.setAttribute("style", "display: block");
+  timer.textContent = '';
+  // Show the End Game Screen (generate!!!)
 }
 
 // When the Submit button is pressed
 function showHighscores() {
   // Hide the End Game Screen
-  endGameScreen.setAttribute("style", "display: block");
-  // Show the Highscores Screen
-  highscoreScreen.setAttribute("style", "display: block");
+  endGameScreen.textContent = '';
+  // Show the Highscores Screen (generate!!!)
+
 }
 
 
@@ -253,5 +259,8 @@ backButton.addEventListener("click", backStart);
 // Clear Highscores Button
 clearButton.addEventListener("click", clearHighscores);
 
-// Watch for clicks on any of the options
-userGuess.addEventListener("click", checkAnswer )
+// Watch for clicks on the four possible options
+userGuess0.addEventListener("click", checkAnswer);
+userGuess1.addEventListener("click", checkAnswer);
+userGuess2.addEventListener("click", checkAnswer);
+userGuess3.addEventListener("click", checkAnswer);

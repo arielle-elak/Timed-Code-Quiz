@@ -19,18 +19,6 @@ body {
           Game Logic
 ==============================*/
 
-/*At game onset, these sections will be hidden*/
-section#quiz-section {
-    display: none;
-}
-
-section#end-game {
-    display: none;
-}
-
-section#highscores {
-    display: none;
-}
 
 
 /*==============================
