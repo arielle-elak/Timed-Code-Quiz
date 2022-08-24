@@ -171,15 +171,19 @@ function checkAnswer() {
 
 
  // When button is clicked, show the first question prompt in the list
-function askQuestion1() {
+function askQuestion() {
 
   // From the questionTitle key, pull the value
 
-  // From the options object, pull the values
+  // From the options object, pull the entries
   var answers = Object.entries(questions.question1.options);
-
+  // For each entry in answers, log the key and corresponding value
   answers.forEach(([key, value]) => {
     console.log(value);
+    // Create a new list item
+    var newLi = document.createElement("li");
+    newLi.textContent = value;
+    optionsList.appendChild(newLi);
   });
 }
 
@@ -198,7 +202,7 @@ function startQuiz() {
   // Start the timer
   timerScore();
   // Start question asking loop function
-  askQuestion1();
+  askQuestion();
 }
 
 // Either when the timer reaches 0 or user has answered all questions
