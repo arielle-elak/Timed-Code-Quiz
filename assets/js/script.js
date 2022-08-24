@@ -16,6 +16,7 @@ var quizScreen = document.querySelector("#quiz-section");
 var questionTitle = document.querySelector("#question-title");
 var optionsList = document.querySelector("#options-list");
 var validation = document.querySelector("#validation");
+var userGuess = document.querySelector("#option")
 var isWin = false;
 
 // Game over screen selectors
@@ -132,8 +133,26 @@ function showQuizSection() {
   quizScreen.setAttribute("style", "display: block");
 }
 
+ /*  // Check user answer against correct answer
 function checkAnswer() {
-  // Check user answer against correct answer
+
+  // Get index of current question set
+  var questionIndex = currQuestion.indexOf;
+
+  // Get the options in the current options array within questions
+  var currOptions = questions[0].options;
+
+  // Location of the index that DETERMINES the correct answer (the answer property of questions)
+  var correctAnswerIndex = questions[0].answer;
+
+  // The correct answer is located at the index specified by the value in the answer property of questions)
+  var answer = questions[0].options[correctAnswerIndex.value];
+
+  console.log(correctAnswer);
+
+  var userAnswer =
+
+// Reward or pentalty for right or wrong answer
   if (userAnswer !== answer) {
     timeLeft -= 10;
     validation.textContent = "Sorry! Wrong answer."
@@ -142,6 +161,7 @@ function checkAnswer() {
     validation.textContent = "Correct!"
   }
 }
+*/
 
 
  // When button is clicked, show the first question prompt in the list
@@ -149,6 +169,8 @@ function askQuestion() {
 
   // DOM selects the question-title h2
   var pageQuestion = document.body.children[2].children[0];
+
+  // Randomly selected question's index is i
   var currQuestion = questions[0].question;
 
   // Sets the text content of the h2 tag to equal the text of the current quiz question in the questions object
@@ -164,10 +186,11 @@ function askQuestion() {
   var optionsLength = currAnswers.length;
 
   var optionItem;
-  // Then for each option in the currOptions array, post it as a new list item
+  // Then for each option in the currAnswers array, post it as a new list item
     for (i = 0; i < optionsLength; i++) {
       optionItem = document.createElement('li');
-      optionItem.classList.add('option');
+      optionClass = "option" + [i];
+      optionItem.classList.add(optionClass);
       optionItem.textContent = currAnswers[i];
       optionsList.appendChild(optionItem);
       }
@@ -216,9 +239,6 @@ function showHighscores() {
 // Start the Quiz Button
 startButton.addEventListener("click", startQuiz);
 
-// Click Possible Answer Button
-optionsList.addEventListener("click", checkAnswer);
-
 // Log Player Input in Initials Field
 initials.addEventListener("keydown", function (event) {
     var initialsText = event.key;
@@ -232,3 +252,6 @@ backButton.addEventListener("click", backStart);
 
 // Clear Highscores Button
 clearButton.addEventListener("click", clearHighscores);
+
+// Watch for clicks on any of the options
+userGuess.addEventListener("click", checkAnswer )
