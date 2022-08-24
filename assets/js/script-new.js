@@ -3,7 +3,7 @@
 
 // Top bar selectors
 var scoreLink = document.querySelector("#view-highscores");
-var timer = document.querySelector("timer");
+var timer = document.querySelector("#timer");
 var secondsLeft = 60;
 
 // Starting screen selectors
@@ -57,7 +57,11 @@ function timerScore() {
       }
 
     }, 1000);
-  }
+}
+
+//TEST LISTENER FOR TIMER
+startButton.addEventListener("click", timerScore);
+
 
 
 
@@ -68,6 +72,7 @@ function timerScore() {
 // 4) *~LISTENERS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+/*
 // Start the Quiz Button
 startButton.addEventListener("click", startQuiz);
 
@@ -87,3 +92,4 @@ backButton.addEventListener("click", backStart);
 
 // Clear Highscores Button
 clearButton.addEventListener("click", clearHighscores);
+*/
