@@ -51,7 +51,7 @@ var questions = {
       2: "answer3",
       3: "answer4",
     },
-    answerIndex: 0,
+    answerIndex: "0",
   },
 
   question2: {
@@ -62,7 +62,7 @@ var questions = {
       2: "answer3",
       3: "answer4",
     },
-    answerIndex: 3,
+    answerIndex: "3",
   },
 
   question3: {
@@ -73,7 +73,7 @@ var questions = {
       2: "answer3",
       3: "answer4",
     },
-    answerIndex: 3,
+    answerIndex: "3",
   },
 
   question4: {
@@ -84,7 +84,7 @@ var questions = {
       2: "answer3",
       3: "answer4",
     },
-    answerIndex: 2,
+    answerIndex: "2",
   },
 
   question5: {
@@ -95,7 +95,7 @@ var questions = {
       2: "answer3",
       3: "answer4",
     },
-    answerIndex: 1,
+    answerIndex: "1",
   }
 };
 
@@ -158,16 +158,17 @@ function askQuestion1() {
     // Create a new list item
     var newLi = document.createElement("li");
     Object.assign(newLi, {
+      // Assign class, id, and click listener/function
       className: "active-button",
       id: itemNumber,
-      onclick: function checkAnswer () {
+      onclick: function checkAnswer() {
+        // When this item is clicked, it's referencing its uniquely generated id
         console.log("Clicked " + newLi.id);
         userAnswer = newLi.id;
-        console.log(userAnswer + " " + typeof userAnswer);
-        var answerValue = questions.question1.answerIndex;
-        console.log(answerValue);
-        realAnswer = answerValue.toString();
-        console.log(typeof userAnswer + " " + typeof realAnswer);
+        // realAnswer obtains the value stored in answerIndex, with references the index of the correct item
+        var realAnswer = questions.question1.answerIndex;
+        // Verify they are both strings and are going to match.
+        console.log(typeof userAnswer + " " + userAnswer + " " + typeof realAnswer + " " + realAnswer);
         if (userAnswer === realAnswer) {
             console.log("Correct!");
         } else {
@@ -177,7 +178,9 @@ function askQuestion1() {
   })
     // Since we want the id to start at 0 to match the index, only increase the item number after it prints
     itemNumber++;
+    // Print the content of the value as the newLi text content
     newLi.textContent = value;
+    // Finally, append this list item as a child of the ul (optionsList)
     optionsList.appendChild(newLi);
 
   });
