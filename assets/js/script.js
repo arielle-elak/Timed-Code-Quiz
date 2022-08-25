@@ -19,6 +19,7 @@ var questionTitle = document.querySelector("#question-title");
 const optionsList = document.querySelector("#options-list");
 var validation = document.querySelector("#validation");
 var answersLength = 4;
+var userAnswer = false;
 
 var isWin = false;
 
@@ -137,43 +138,13 @@ function showQuizSection() {
   // Show quiz screen (generateElement!!!!)
 }
 
- /*  // Check user answer against correct answer
-function checkAnswer() {
-
-  // Get index of current question set
-  var questionIndex = currQuestion.indexOf;
-
-  // Get the options in the current options array within questions
-  var currOptions = questions[0].options;
-
-  // Location of the index that DETERMINES the correct answer (the answer property of questions)
-  var correctAnswerIndex = questions[0].answer;
-
-  // The correct answer is located at the index specified by the value in the answer property of questions)
-  var answer = questions[0].options[correctAnswerIndex.value];
-
-  console.log(correctAnswer);
-
-  var userAnswer =
-
-// Reward or pentalty for right or wrong answer
-  if (userAnswer !== answer) {
-    timeLeft -= 10;
-    validation.textContent = "Sorry! Wrong answer."
-  } else if (userAnswer === answer) {
-    timeLeft += 10;
-    validation.textContent = "Correct!"
-  }
-}
-*/
-
-
-
 
  // When button is clicked, show the first question prompt in the list
-function askQuestion() {
+function askQuestion1() {
 
   // From the questionTitle key, pull the value
+  var currentQuestion = questions.question1.questionTitle;
+  questionTitle.textContent = currentQuestion;
 
   // From the options object, pull the entries
   var answers = Object.entries(questions.question1.options);
@@ -183,18 +154,29 @@ function askQuestion() {
   answers.forEach(([key, value]) => {
     console.log(value);
     console.log(key);
-    itemNumber++;
+
     // Create a new list item
     var newLi = document.createElement("li");
     Object.assign(newLi, {
       className: "active-button",
       id: itemNumber,
-      onclick: function () {
+      onclick: function checkAnswer () {
         console.log("Clicked " + newLi.id);
-      }
-
-    })
-
+        userAnswer = newLi.id;
+        console.log(userAnswer + " " + typeof userAnswer);
+        var answerValue = questions.question1.answerIndex;
+        console.log(answerValue);
+        realAnswer = answerValue.toString();
+        console.log(typeof userAnswer + " " + typeof realAnswer);
+        if (userAnswer === realAnswer) {
+            console.log("Correct!");
+        } else {
+          console.log("Incorrect!");
+      };
+    }
+  })
+    // Since we want the id to start at 0 to match the index, only increase the item number after it prints
+    itemNumber++;
     newLi.textContent = value;
     optionsList.appendChild(newLi);
 
@@ -216,7 +198,7 @@ function startQuiz() {
   // Start the timer
   timerScore();
   // Start question asking loop function
-  askQuestion();
+  askQuestion1();
 }
 
 // Either when the timer reaches 0 or user has answered all questions
