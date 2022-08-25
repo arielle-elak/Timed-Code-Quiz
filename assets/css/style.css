@@ -21,17 +21,12 @@ header {
     justify-content: space-between;
 }
 
-#start {
+#start,#quiz-section, #end-game  {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#quiz-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 #options-list {
     padding-left: 0;
@@ -43,6 +38,7 @@ header {
     align-items: center;
     text-align: center;
 }
+
 
 /*==============================
           Game Logic

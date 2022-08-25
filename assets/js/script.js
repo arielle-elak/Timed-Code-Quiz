@@ -114,13 +114,14 @@ function gameOver() {
   // Clear the quiz screen to get ready for the intials entry page
   quizScreen.textContent = '';
 
-  var enterScoreTitle = document.createElement("h2");
+  var enterScoreTitle = endGameScreen.children[0];
   enterScoreTitle.textContent = "All done!"
   endGameScreen.appendChild(enterScoreTitle);
 
-  var finalScore = document.createElement("p");
+
+  var finalScore = document.createElement('p');
   finalScore.textContent = "Your final score is: " + timeLeft;
-  initialsArea.appendChild(finalScore);
+  endGameScreen.appendChild(finalScore);
 
   enterScore();
 }
