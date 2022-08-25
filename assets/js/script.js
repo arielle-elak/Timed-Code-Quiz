@@ -106,6 +106,26 @@ var questions = {
 // 3) *~FUNCTIONS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+function enterScore() {
+
+}
+
+function gameOver() {
+  // Clear the quiz screen to get ready for the intials entry page
+  quizScreen.textContent = '';
+
+  var enterScoreTitle = document.createElement("h2");
+  enterScoreTitle.textContent = "All done!"
+  endGameScreen.appendChild(enterScoreTitle);
+
+  var finalScore = document.createElement("p");
+  finalScore.textContent = "Your final score is: " + timeLeft;
+  initialsArea.appendChild(finalScore);
+
+  enterScore();
+}
+
+
 // TIMER
 function timerScore() {
   // Sets timer
@@ -117,7 +137,7 @@ function timerScore() {
       if (isWin && timeLeft > 0) {
         // Clears interval and stops timer
         clearInterval(timer);
-        winGame();
+        gameOver();
       }
 
       // Tests if time has run out
@@ -178,6 +198,7 @@ function askFirstQuestion() {
           })
           newP.textContent = "Correct!";
           validation.appendChild(newP);
+          timeLeft += 10;
 
         } else {
           // Assign the incorrect message to the class to show it as red
@@ -188,6 +209,7 @@ function askFirstQuestion() {
           })
           newP.textContent = "Sorry, that's incorrect.";
           validation.appendChild(newP);
+          timeLeft -= 10;
         };
       }
     })
