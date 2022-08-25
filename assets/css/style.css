@@ -21,10 +21,19 @@ header {
     justify-content: space-between;
 }
 
+#view-highscores a {
+    text-decoration: none;
+}
+
+#view-highscores a:hover {
+    text-decoration: underline;
+}
+
 #start,#quiz-section, #end-game  {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 
@@ -39,11 +48,16 @@ header {
     text-align: center;
 }
 
+#initials-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 2rem;
+}
 
 /*==============================
           Game Logic
 ==============================*/
-
 
 
 /*==============================

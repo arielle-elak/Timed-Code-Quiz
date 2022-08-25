@@ -26,6 +26,7 @@ var isWin = false;
 
 // Game over screen selectors
 var endGameScreen = document.querySelector("#end-game");
+var endTitleArea = document.querySelector("#title-area")
 var initialsArea = document.querySelector("#initials-area");
 var initialsText = document.querySelector("#initials");
 var submitButton = document.querySelector("#submit");
@@ -114,14 +115,24 @@ function gameOver() {
   // Clear the quiz screen to get ready for the intials entry page
   quizScreen.textContent = '';
 
-  var enterScoreTitle = endGameScreen.children[0];
+  var enterScoreTitle = endGameScreen.children[0].children[0];
   enterScoreTitle.textContent = "All done!"
-  endGameScreen.appendChild(enterScoreTitle);
+  endTitleArea.appendChild(enterScoreTitle);
 
 
   var finalScore = document.createElement('p');
   finalScore.textContent = "Your final score is: " + timeLeft;
-  endGameScreen.appendChild(finalScore);
+  endTitleArea.appendChild(finalScore);
+
+  var finalScore = document.createElement('p');
+  finalScore.textContent = "Please enter your initials:";
+  initialsArea.appendChild(finalScore);
+
+
+  var input = document.createElement("input");
+  input.type = "text";
+  input.className = ""; // set the CSS class
+  initialsArea.appendChild(input);
 
   enterScore();
 }
@@ -193,24 +204,26 @@ function askFirstQuestion() {
         if (userAnswer === realAnswer) {
           // Assign the correct message to the class to show it as green
           console.log("Correct!");
+          timeLeft += 10;
           var newP = document.createElement("p");
           Object.assign(newP, {
             className: "correct-message",
           })
           newP.textContent = "Correct!";
           validation.appendChild(newP);
-          timeLeft += 10;
+
 
         } else {
           // Assign the incorrect message to the class to show it as red
           console.log("Sorry, that's incorrect.");
+          timeLeft -= 10;
           var newP = document.createElement("p");
           Object.assign(newP, {
             className: "incorrect-message",
           })
           newP.textContent = "Sorry, that's incorrect.";
           validation.appendChild(newP);
-          timeLeft -= 10;
+
         };
       }
     })
