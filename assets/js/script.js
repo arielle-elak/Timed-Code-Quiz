@@ -111,7 +111,7 @@ function timerScore() {
   // Sets timer
   timer = setInterval(function() {
     timeLeft--;
-    topTimer.textContent = timeLeft;
+    topTimer.textContent = "Time Left: " + timeLeft;
     if (timeLeft >= 0) {
       // Tests if win condition is met
       if (isWin && timeLeft > 0) {
