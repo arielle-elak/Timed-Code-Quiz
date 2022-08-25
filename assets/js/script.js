@@ -20,6 +20,7 @@ const optionsList = document.querySelector("#options-list");
 var validation = document.querySelector("#validation");
 var answersLength = 4;
 var userAnswer = false;
+var userClicked = document.querySelector("#active-button");
 
 var isWin = false;
 
@@ -140,17 +141,16 @@ function showQuizSection() {
 
 
  // When button is clicked, show the first question prompt in the list
-function askQuestion1() {
-
+function askFirstQuestion() {
   // From the questionTitle key, pull the value
   var currentQuestion = questions.question1.questionTitle;
   questionTitle.textContent = currentQuestion;
 
   // From the options object, pull the entries
   var answers = Object.entries(questions.question1.options);
-  // For each entry in answers, log the key and corresponding value
-  // If the answer and key match, then it's correct
+  // We're going to increase the item number until it reaches 3, to signify the index of the answer.
   var itemNumber = 0;
+  // For each of the found answers inside of the given question object, we can find the value and key for each
   answers.forEach(([key, value]) => {
     console.log(value);
     console.log(key);
@@ -170,12 +170,27 @@ function askQuestion1() {
         // Verify they are both strings and are going to match.
         console.log(typeof userAnswer + " " + userAnswer + " " + typeof realAnswer + " " + realAnswer);
         if (userAnswer === realAnswer) {
-            console.log("Correct!");
+          // Assign the correct message to the class to show it as green
+          console.log("Correct!");
+          var newP = document.createElement("p");
+          Object.assign(newP, {
+            className: "correct-message",
+          })
+          newP.textContent = "Correct!";
+          validation.appendChild(newP);
+
         } else {
-          console.log("Incorrect!");
-      };
-    }
-  })
+          // Assign the incorrect message to the class to show it as red
+          console.log("Sorry, that's incorrect.");
+          var newP = document.createElement("p");
+          Object.assign(newP, {
+            className: "incorrect-message",
+          })
+          newP.textContent = "Sorry, that's incorrect.";
+          validation.appendChild(newP);
+        };
+      }
+    })
     // Since we want the id to start at 0 to match the index, only increase the item number after it prints
     itemNumber++;
     // Print the content of the value as the newLi text content
@@ -184,24 +199,20 @@ function askQuestion1() {
     optionsList.appendChild(newLi);
 
   });
-}
 
+}
 
 
 
 // When the Start Quiz Button is pressed
 function startQuiz() {
 
-  // Get the options ul ready to have text injected
-
   // Hide the start screen and show the quiz screen
   showQuizSection();
-
-  // These listeners won't be able to initiate
   // Start the timer
   timerScore();
   // Start question asking loop function
-  askQuestion1();
+  askFirstQuestion();
 }
 
 // Either when the timer reaches 0 or user has answered all questions
@@ -210,6 +221,8 @@ function endQuiz() {
   timer.textContent = '';
   // Hide the view highscores link
   timer.textContent = '';
+  // Hide the quiz screen
+  quizScreen.textContent = '';
   // Show the End Game Screen (generate!!!)
 }
 
@@ -251,5 +264,3 @@ backButton.addEventListener("click", backStart);
 
 // Clear Highscores Button
 clearButton.addEventListener("click", clearHighscores);
-
-userAnswer1.addEventListener("click", test);
