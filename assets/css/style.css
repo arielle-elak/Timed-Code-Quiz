@@ -48,11 +48,29 @@ header {
     text-align: center;
 }
 
-#initials-area {
+#initials-area, #initials-reveal {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     column-gap: 2rem;
+    align-items: baseline;
+}
+
+#initials-reveal {
+    border-radius: 10px;
+    padding: 1rem;
+    margin: .5rem;
+    text-align: center;
+    font-weight: bold;
+    background-color: purple;
+    color: white
+}
+
+input[type="text"] {
+    height: 2rem;
+}
+input[type="button"] {
+    height: 2rem;
 }
 
 /*==============================

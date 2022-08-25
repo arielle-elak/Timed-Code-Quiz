@@ -28,8 +28,8 @@ var isWin = false;
 var endGameScreen = document.querySelector("#end-game");
 var endTitleArea = document.querySelector("#title-area")
 var initialsArea = document.querySelector("#initials-area");
-var initialsText = document.querySelector("#initials");
-var submitButton = document.querySelector("#submit");
+
+
 
 // High score screen selectors
 var highscoreScreen = document.querySelector("#highscores");
@@ -107,13 +107,13 @@ var questions = {
 // 3) *~FUNCTIONS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-function enterScore() {
 
-}
 
 function gameOver() {
   // Clear the quiz screen to get ready for the intials entry page
   quizScreen.textContent = '';
+
+  initialsArea.setAttribute("id", "initials-reveal");
 
   var enterScoreTitle = endGameScreen.children[0].children[0];
   enterScoreTitle.textContent = "All done!"
@@ -131,11 +131,35 @@ function gameOver() {
 
   var input = document.createElement("input");
   input.type = "text";
+  input.id = "initials";
   input.className = ""; // set the CSS class
   initialsArea.appendChild(input);
 
-  enterScore();
-}
+  var input = document.createElement("input");
+  input.type = "button";
+  input.value = "Submit";
+  input.id = "submit";
+  input.className = "submit"; // set the CSS class
+  initialsArea.appendChild(input);
+
+  var submitButton = document.querySelector("#submit");
+  submitButton.onclick = function () {
+     // Enters your most recent score and initials into local storage
+  var initialsText = document.querySelector("#initials");
+
+  var score = timeLeft;
+  var initials = initialsText.value;
+
+  var highScore = {
+    score: score,
+    initials: initials,
+  };
+
+  localStorage.setItem("lastScore", JSON.stringify(highScore));
+  }
+
+};
+
 
 
 // TIMER
@@ -286,17 +310,3 @@ function test() {
 
 // Start the Quiz Button
 startButton.addEventListener("click", startQuiz);
-
-// Log Player Input in Initials Field
-initials.addEventListener("keydown", function (event) {
-    var initialsText = event.key;
-});
-
-// Initials Submit Button
-submitButton.addEventListener("click", logHighscore);
-
-// Go Back Button
-backButton.addEventListener("click", backStart);
-
-// Clear Highscores Button
-clearButton.addEventListener("click", clearHighscores);
