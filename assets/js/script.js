@@ -1,3 +1,5 @@
+
+
 // 1) *~SELECTORS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -56,8 +58,7 @@ var scoreSort = [];
 // The options object contains sub objects for each possible answer
 var questions = {
 
-  question: {
-    questionTitle: "1: What does one append to code to prevent spaces from sneaking in to user input?",
+  "1: What does one append to code to prevent spaces from sneaking in to user input?": {
     options: {
       0: "answer1",
       1: "answer2",
@@ -67,8 +68,7 @@ var questions = {
     answerIndex: "0",
   },
 
-  question: {
-    questionTitle: "2: What does one append to code to prevent spaces from sneaking in to user input?",
+  "2: Question2:": {
     options: {
       0: "answer1",
       1: "answer2",
@@ -78,8 +78,7 @@ var questions = {
     answerIndex: "3",
   },
 
-  question: {
-    questionTitle: "3: What does one append to code to prevent spaces from sneaking in to user input?",
+  "3: Question3:": {
     options: {
       0: "answer1",
       1: "answer2",
@@ -89,8 +88,7 @@ var questions = {
     answerIndex: "3",
   },
 
-  question: {
-    questionTitle: "4: What does one append to code to prevent spaces from sneaking in to user input?",
+  "4: Question4:": {
     options: {
       0: "answer1",
       1: "answer2",
@@ -100,8 +98,7 @@ var questions = {
     answerIndex: "2",
   },
 
-  question: {
-    questionTitle: "5: What does one append to code to prevent spaces from sneaking in to user input?",
+  "5: Question5:": {
     options: {
       0: "answer1",
       1: "answer2",
@@ -111,7 +108,6 @@ var questions = {
     answerIndex: "1",
   }
 };
-
 
 
 
@@ -262,28 +258,26 @@ function showQuizSection() {
 }
 
 
+function getNestedIndex() {
+  getFullIndexOfObject('questions')
+
+}
+
+
+
 // Function to cycle through all questions
 // CURRENT WORKING POINT 8/26/2022
 function askQuestions() {
-  var currentQuestion = questions.question[q].questionTitle;
+
   var questionsLength = Object.entries(questions).length;
 
+
   for (q = 0; q < questionsLength; q++) {
+
+    var currentQuestion = currentQuestion = questions.question[q].questionTitle;
+
     questionTitle.textContent = currentQuestion;
-  }
-
-};
-
-
- // When button is clicked, show the first question prompt in the list
- // THIS IS THE OLD VERSION WHERE JUST ONE QUESTION IS ASKED - USING FOR CREATING LOOP
-function askFirstQuestion() {
-  // From the questionTitle key, pull the value
-  var currentQuestion = questions.question.questionTitle;
-  questionTitle.textContent = currentQuestion;
-
-  // From the options object, pull the entries
-  var answers = Object.entries(questions.question1.options);
+    var answers = Object.entries(questions.question1.options);
   // We're going to increase the item number until it reaches 3, to signify the index of the answer.
   var itemNumber = 0;
   // For each of the found answers inside of the given question object, we can find the value and key for each
@@ -339,8 +333,9 @@ function askFirstQuestion() {
     optionsList.appendChild(newLi);
 
   });
+  }
 
-}
+};
 
 
 
@@ -352,7 +347,7 @@ function startQuiz() {
   // Start the timer
   timerScore();
   // Start question asking loop function
-  askFirstQuestion();
+  askQuestions();
 }
 
 // Either when the timer reaches 0 or user has answered all questions
