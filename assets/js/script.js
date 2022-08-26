@@ -19,7 +19,6 @@ var pageQuestion = document.body.children[2].children[0];
 var quizScreen = document.querySelector("#quiz-section");
 var questionTitle = document.querySelector("#question-title");
 var optionsList = document.querySelector("#options-list");
-var answersLength = 4;
 var userAnswer = false;
 var userClicked = document.querySelector("#active-button");
 var newLi = '';
@@ -72,6 +71,7 @@ var questionsArr = [
   ["3: Question.", ["3option1", "3option2", "3option3", "3option4"], 0],
   ["4: Question.", ["4option1", "4option2", "4option3", "4option4"], 3],
   ["5: Question.", ["5option1", "5option2", "5option3", "5option4"], 1],
+  ["6: Question.", ["6option1", "6option2", "6option3", "6option4"], 2],
 ];
 
 var questionsLength = questionsArr.length;
@@ -89,6 +89,11 @@ var questionsCounter = 0;
 
 // When the quiz ends (either by time out or answering all questions)
 function gameOver() {
+
+  // Clear the timer and the content from the top
+  clearInterval(timer);
+  topTimer.textContent = '';
+
   // Clear the quiz screen to get ready for the intials entry page
   quizScreen.textContent = '';
 
@@ -132,11 +137,6 @@ function gameOver() {
     // They're both numbers so they can mathematically compare
     console.log(typeof timeLeft + " " + typeof highestScore);
 
-    // SCORE TESTING VALUE IS 1
-
-    timeLeft = 1;
-
-
     if (timeLeft > highestScore) {
       // Log the score as an object with initials: score
       var key = initialsText.value.trim();
@@ -146,6 +146,8 @@ function gameOver() {
       console.log(object);
 
       object[key] = timeLeft;
+
+
 
       // Add the current score as an entry into the highscores object
       highScores = { ...object };
@@ -195,18 +197,16 @@ function timerScore() {
   timer = setInterval(function() {
     timeLeft--;
     topTimer.textContent = "Time Left: " + timeLeft;
-    if (timeLeft >= 0) {
+    if (timeLeft > 0) {
       // Tests if win condition is met
-      if (isWin && timeLeft > 0) {
-        // Clears interval and stops timer
-        clearInterval(timer);
+      if (timeLeft > 0 && questionsCounter === 6) {
+        // Clears interval and stops timer AND hides the timer
         gameOver();
       }
 
-      // Tests if time has run out
-      if (timeLeft === 0) {
-        // Clears interval
-        clearInterval(timer);
+      // Tests if time has run out - need to account for accidental negative time values
+      if (timeLeft <= 0) {
+        // Clears interval AND hides the timer
         gameOver();
       }
     }
@@ -227,16 +227,15 @@ function showQuizSection() {
 // CURRENT WORKING POINT 8/26/2022
 function askQuestions() {
 
+// Only ask questions if the counter is less than 5
+  if (questionsCounter < 6 && timeLeft > 0) {
+
 // Clear the previous entries
   questionTitle.textContent = '';
   option0.textContent = '';
   option1.textContent = '';
   option2.textContent = '';
   option3.textContent = '';
-
-
-
-
 
   // q value will equal the values for the current question
   let q = [questionsCounter];
@@ -252,7 +251,9 @@ function askQuestions() {
   option2.textContent = currentOptions[2];
   option3.textContent = currentOptions[3];
 
-
+} else {
+  gameOver();
+}
 
 }; // END askQuestions function
 
@@ -290,10 +291,9 @@ function checkAnswer(userAnswer) {
     questionsCounter += 1;
   }; // END if-else
 
-  // Ask the next question
   askQuestions();
-
   // Slight delay before the previous validation message goes away
+
   setTimeout(() => {
     validationMessage.textContent = '';
   }, "2000")
@@ -311,24 +311,6 @@ function startQuiz() {
   timerScore();
   // Start question asking loop function
   askQuestions();
-}
-
-// Either when the timer reaches 0 or user has answered all questions
-function endQuiz() {
-  // Hide the timer
-  timer.textContent = '';
-  // Hide the view highscores link
-  timer.textContent = '';
-  // Hide the quiz screen
-  quizScreen.textContent = '';
-  // Show the End Game Screen (generate!!!)
-}
-
-
-
-
-function test() {
-  console.log("It worked!")
 }
 
 
