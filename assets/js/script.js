@@ -67,11 +67,11 @@ var scoreSort = [];
 
 
 var questionsArr = [
-  ["1: Question.", ["option1", "option2", "option3", "option4"], 2],
-  ["2: Question.", ["option1", "option2", "option3", "option4"], 1],
-  ["3: Question.", ["option1", "option2", "option3", "option4"], 0],
-  ["4: Question.", ["option1", "option2", "option3", "option4"], 3],
-  ["5: Question.", ["option1", "option2", "option3", "option4"], 1],
+  ["1: Question.", ["1option1", "1option2", "1option3", "1option4"], 2],
+  ["2: Question.", ["2option1", "2option2", "2option3", "2option4"], 1],
+  ["3: Question.", ["3option1", "3option2", "3option3", "3option4"], 0],
+  ["4: Question.", ["4option1", "4option2", "4option3", "4option4"], 3],
+  ["5: Question.", ["5option1", "5option2", "5option3", "5option4"], 1],
 ];
 
 var questionsLength = questionsArr.length;
@@ -229,6 +229,13 @@ function showQuizSection() {
 // CURRENT WORKING POINT 8/26/2022
 function askQuestions() {
 
+// Clear the previous entries
+  questionTitle.textContent = '';
+  option0.textContent = '';
+  option1.textContent = '';
+  option2.textContent = '';
+  option3.textContent = '';
+
   // q value will equal the values for the current question
   let q = [questionsCounter];
 
@@ -243,8 +250,17 @@ function askQuestions() {
   option2.textContent = currentOptions[2];
   option3.textContent = currentOptions[3];
 
-// Function runs when HTML is clicked - sends the userAnswer value to the function for checking
+  // Function runs when HTML is clicked - sends the userAnswer value to the function for checking
+}; // END askQuestions function
+
 function checkAnswer(userAnswer) {
+  // q value will equal the values for the current question
+  let q = [questionsCounter];
+
+  // Selects the values for the current item
+  var currentTitle = questionsArr[q][0]; // String
+  var currentOptions = questionsArr[q][1]; // Object
+  var answerIndex = questionsArr[q][2]; // Number
 
   // Verify they are both numbers and are going to match.
   console.log(typeof userAnswer + " " + userAnswer + " " + typeof answerIndex + " " + answerIndex);
@@ -259,6 +275,8 @@ function checkAnswer(userAnswer) {
     });
     newP.textContent = "Correct!";
     validation.appendChild(newP);
+    questionsCounter += 1;
+    askQuestions();
 
   } else {
     // Assign the incorrect message to the class to show it as red in validation section
@@ -270,11 +288,11 @@ function checkAnswer(userAnswer) {
     });
     newP.textContent = "Sorry, that's incorrect.";
     validation.appendChild(newP);
+    questionsCounter += 1;
+    askQuestions();
   }; // END if-else
 
-  } // END checkAnswers function
-
-}; // END askQuestions function
+} // END checkAnswers function
 
 
 
