@@ -19,12 +19,12 @@ var pageQuestion = document.body.children[2].children[0];
 var quizScreen = document.querySelector("#quiz-section");
 var questionTitle = document.querySelector("#question-title");
 var optionsList = document.querySelector("#options-list");
-var validation = document.querySelector("#validation");
 var answersLength = 4;
 var userAnswer = false;
 var userClicked = document.querySelector("#active-button");
 var newLi = '';
 var isWin = false;
+var validationMessage = document.querySelector("#validation-message");
 // Selectors for each option and equivalent index for option in the array
 var option0 = document.getElementById("0");
 var option1 = document.getElementById("1");
@@ -152,8 +152,6 @@ function gameOver() {
       console.log(object);
       console.log(highScores);
 
-
-
       // And store that object to local storage
       localStorage.setItem("highScores", JSON.stringify(highScores));
       showHighScoreList();
@@ -236,6 +234,10 @@ function askQuestions() {
   option2.textContent = '';
   option3.textContent = '';
 
+
+
+
+
   // q value will equal the values for the current question
   let q = [questionsCounter];
 
@@ -250,9 +252,11 @@ function askQuestions() {
   option2.textContent = currentOptions[2];
   option3.textContent = currentOptions[3];
 
-  // Function runs when HTML is clicked - sends the userAnswer value to the function for checking
+
+
 }; // END askQuestions function
 
+// checkAnswer runs when HTML is clicked - sends the userAnswer value to the function for checking
 function checkAnswer(userAnswer) {
   // q value will equal the values for the current question
   let q = [questionsCounter];
@@ -269,28 +273,30 @@ function checkAnswer(userAnswer) {
     // Assign the correct message to the class to show it as green in validation section
     console.log("Correct!");
     timeLeft += 10;
-    var newP = document.createElement("p");
-    Object.assign(newP, {
+    Object.assign(validationMessage, {
       className: "correct-message",
     });
-    newP.textContent = "Correct!";
-    validation.appendChild(newP);
+    validationMessage.textContent = "Correct!";
     questionsCounter += 1;
-    askQuestions();
 
   } else {
     // Assign the incorrect message to the class to show it as red in validation section
     console.log("Sorry, that's incorrect.");
     timeLeft -= 10;
-    var newP = document.createElement("p");
-    Object.assign(newP, {
+    Object.assign(validationMessage, {
       className: "incorrect-message",
     });
-    newP.textContent = "Sorry, that's incorrect.";
-    validation.appendChild(newP);
+    validationMessage.textContent = "Sorry, that's incorrect.";
     questionsCounter += 1;
-    askQuestions();
   }; // END if-else
+
+  // Ask the next question
+  askQuestions();
+
+  // Slight delay before the previous validation message goes away
+  setTimeout(() => {
+    validationMessage.textContent = '';
+  }, "2000")
 
 } // END checkAnswers function
 
