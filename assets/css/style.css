@@ -100,7 +100,7 @@ input[type="button"] {
     width: 14rem;
 }
 
-#options-list > *, #start-quiz, #score-buttons {
+#options-list > *, #start-quiz, #score-buttons-0, #score-buttons-1 {
     text-decoration: none;
     list-style: none;
     border-radius: 10px;

@@ -40,8 +40,6 @@ var initialsArea = document.querySelector("#initials-area");
 // High score screen selectors
 var highscoreScreen = document.querySelector("#highscores-section");
 var highscoresTitle = document.querySelector("#highscores-title");
-var backButton = document.querySelector("#go-back");
-var clearButton = document.querySelector("#clear-highscores");
 var buttonSection = document.querySelector("#button-section");
 var highScoreList = document.querySelector("#highscores");
 
@@ -174,19 +172,33 @@ function gameOver() {
 
     // Array of two buttons to create
     var buttons = ["Go Back", "Clear Highscores"];
-
     // Create two buttons in the buttonSection
     for (i = 0; i < 2; i++) {
       let button = document.createElement("button");
       button.innerHTML = buttons[i];
       button.classList = 'active-button';
-      button.id = "score-buttons";
+      // Add in an identifier for the on-click events
+      button.id = "score-buttons"+"-"+i;
       buttonSection.appendChild(button);
     }
 
-  //
+    var backButton = document.querySelector("#score-buttons-0");
+    var clearButton = document.querySelector("#score-buttons-1");
 
-  }
+    // Go back button will reload the page keeping the high scores in tact
+    backButton.onclick = function () {
+      location.reload();
+    };
+
+    // Clear button will remove everything in local storage and clear the highscore list
+    clearButton.onclick = function () {
+      localStorage.clear();
+      highScoreList.textContent = '';
+    };
+
+
+
+  } // END Submit on click
 };
 
 
@@ -202,12 +214,14 @@ function timerScore() {
       if (timeLeft > 0 && questionsCounter === 6) {
         // Clears interval and stops timer AND hides the timer
         gameOver();
+        console.log(timeLeft);
       }
 
       // Tests if time has run out - need to account for accidental negative time values
       if (timeLeft <= 0) {
         // Clears interval AND hides the timer
         gameOver();
+        console.log(timeLeft);
       }
     }
 // Set time interval to 1 second (1000 milliseconds)
@@ -226,6 +240,7 @@ function showQuizSection() {
 // Function to cycle through all questions
 // CURRENT WORKING POINT 8/26/2022
 function askQuestions() {
+  console.log(timeLeft);
 
 // Only ask questions if the counter is less than 5
   if (questionsCounter < 6 && timeLeft > 0) {
@@ -311,8 +326,11 @@ function startQuiz() {
   timerScore();
   // Start question asking loop function
   askQuestions();
-}
+};
 
+function startOver() {
+  location.reload();
+};
 
 
 
