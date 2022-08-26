@@ -36,7 +36,7 @@ var highscoreScreen = document.querySelector("#highscores-section");
 var highscoresTitle = document.querySelector("#highscores-title");
 var backButton = document.querySelector("#go-back");
 var clearButton = document.querySelector("#clear-highscores");
-
+var buttonSection = document.querySelector("#button-section");
 
 // 2) *~QUESTIONS LIST~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -165,15 +165,29 @@ function gameOver() {
 
     highscoresTitle.textContent = "Highscores";
 
-    backButton.classList.add('active-button');
-    backButton.textContent = "Go Back";
+    // Array of two buttons to create
+    var buttons = ["Go Back", "Clear Highscores"];
 
-    clearButton.classList.add('active-button');
-    clearButton.textContent = "Clear Highscores";
+    // Create two buttons in the buttonSection
+    for (i = 0; i < 2; i++) {
+      let button = document.createElement("button");
+      button.innerHTML = buttons[i];
+      button.classList = 'active-button';
+      button.id = "score-buttons";
+      buttonSection.appendChild(button);
+    }
+
+
+    // Array to store the current and past highscores, and can be saved in local data
+    var highScoresArr = [];
 
 
     // Use the ordered list to show the top five highscores
-    var setHighScoreText = function () {
+    var showHighscores = function () {
+      // Retrieve the current score array from local data
+      var getHighScores = function () {
+
+      }
 
     };
 
@@ -182,7 +196,7 @@ function gameOver() {
 
 
     // Creating an array to keep the list of highscores in, and keep this safe in local data
-    var highScoresArr = [];
+
 
     console.log(highScore);
 
@@ -317,14 +331,6 @@ function endQuiz() {
   // Hide the quiz screen
   quizScreen.textContent = '';
   // Show the End Game Screen (generate!!!)
-}
-
-// When the Submit button is pressed
-function showHighscores() {
-  // Hide the End Game Screen
-  endGameScreen.textContent = '';
-  // Show the Highscores Screen (generate!!!)
-
 }
 
 

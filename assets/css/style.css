@@ -96,7 +96,7 @@ input[type="button"] {
     width: 14rem;
 }
 
-#options-list > *, #start-quiz, #clear-highscores, #go-back {
+#options-list > *, #start-quiz, #score-buttons {
     text-decoration: none;
     list-style: none;
     border-radius: 10px;
