@@ -18,14 +18,18 @@ var startButton = document.querySelector("#start-quiz");
 var pageQuestion = document.body.children[2].children[0];
 var quizScreen = document.querySelector("#quiz-section");
 var questionTitle = document.querySelector("#question-title");
-const optionsList = document.querySelector("#options-list");
+var optionsList = document.querySelector("#options-list");
 var validation = document.querySelector("#validation");
 var answersLength = 4;
 var userAnswer = false;
 var userClicked = document.querySelector("#active-button");
 var newLi = '';
-
 var isWin = false;
+// Selectors for each option and equivalent index for option in the array
+var option0 = document.getElementById("0");
+var option1 = document.getElementById("1");
+var option2 = document.getElementById("2");
+var option3 = document.getElementById("3");
 
 // Game over screen selectors
 var endGameScreen = document.querySelector("#end-game");
@@ -59,6 +63,9 @@ var scoreSort = [];
 // Then those question groups are saved into a master questionsArr array
 
 // Each item in questionsArr [question title, [options], index of right answer in options array]
+
+
+
 var questionsArr = [
   ["1: Question.", ["option1", "option2", "option3", "option4"], 2],
   ["2: Question.", ["option1", "option2", "option3", "option4"], 1],
@@ -71,6 +78,9 @@ var questionsLength = questionsArr.length;
 
 // Keeps track of which question the user is currently on
 var questionsCounter = 0;
+
+
+
 
 
 // 3) *~FUNCTIONS~*
@@ -211,69 +221,58 @@ function timerScore() {
 function showQuizSection() {
   // Hide start screen
   startScreen.textContent = '';
-  // Show quiz screen (generateElement!!!!)
+  // Show quiz screen
+  quizScreen.setAttribute("style", "display: block");
 }
 
 // Function to cycle through all questions
 // CURRENT WORKING POINT 8/26/2022
 function askQuestions() {
 
-  // Cycles through all questions in the questions object
-  for (q = 0; q < questionsLength; q++) {
-    // Selects the question title
-    var currentTitle = questionsArr[q][0]; // String
-    var currentOptions = questionsArr[q][1]; // Object
-    var answerIndex = questionsArr[q][2]; // Number
+  // q value will equal the values for the current question
+  let q = [questionsCounter];
 
-    // Then cycle through all the options contained in the currentOptions object
-    for (o = 0; o < 4; o++) {
-      // Create a new list item
+  // Selects the values for the current item
+  var currentTitle = questionsArr[q][0]; // String
+  var currentOptions = questionsArr[q][1]; // Object
+  var answerIndex = questionsArr[q][2]; // Number
 
-      newLi.textContent = currentOptions[o];
-      optionsList.appendChild(newLi);
+  questionTitle.textContent = currentTitle;
+  option0.textContent = currentOptions[0];
+  option1.textContent = currentOptions[1];
+  option2.textContent = currentOptions[2];
+  option3.textContent = currentOptions[3];
 
-      Object.assign(newLi, {
-        // Assign class, id, and click listener/function
-        className: "active-button",
-        // Assign each list item the index of its matching position in the master array
-        id: o,
-        onclick: function checkAnswer() {
-          // When this item is clicked, it's referencing its uniquely generated id
-          console.log("Clicked " + newLi.id);
-          userAnswer = newLi.id;
-          // realAnswer obtains the value stored in answerIndex, with references the index of the correct item
-          // Verify they are both strings and are going to match.
-          console.log(typeof userAnswer + " " + userAnswer + " " + typeof answerIndex + " " + answerIndex);
+// Function runs when HTML is clicked - sends the userAnswer value to the function for checking
+function checkAnswer(userAnswer) {
 
-          if (userAnswer === answerIndex) {
-            // Assign the correct message to the class to show it as green in validation section
-            console.log("Correct!");
-            timeLeft += 10;
-            var newP = document.createElement("p");
-            Object.assign(newP, {
-               className: "correct-message",
-            });
-            newP.textContent = "Correct!";
-            validation.appendChild(newP);
+  // Verify they are both numbers and are going to match.
+  console.log(typeof userAnswer + " " + userAnswer + " " + typeof answerIndex + " " + answerIndex);
 
-          } else {
-            // Assign the incorrect message to the class to show it as red in validation section
-            console.log("Sorry, that's incorrect.");
-            timeLeft -= 10;
-            var newP = document.createElement("p");
-            Object.assign(newP, {
-              className: "incorrect-message",
-            });
-            newP.textContent = "Sorry, that's incorrect.";
-            validation.appendChild(newP);
-          }; // END if-else
-        } // END onClick function checkAnswer
-      } // END newLi assign list
-      ) // END Object.assign list
+  if (userAnswer === answerIndex) {
+    // Assign the correct message to the class to show it as green in validation section
+    console.log("Correct!");
+    timeLeft += 10;
+    var newP = document.createElement("p");
+    Object.assign(newP, {
+      className: "correct-message",
+    });
+    newP.textContent = "Correct!";
+    validation.appendChild(newP);
 
-    } // END for options loop
+  } else {
+    // Assign the incorrect message to the class to show it as red in validation section
+    console.log("Sorry, that's incorrect.");
+    timeLeft -= 10;
+    var newP = document.createElement("p");
+    Object.assign(newP, {
+      className: "incorrect-message",
+    });
+    newP.textContent = "Sorry, that's incorrect.";
+    validation.appendChild(newP);
+  }; // END if-else
 
-  } // END for questions loop
+  } // END checkAnswers function
 
 }; // END askQuestions function
 
