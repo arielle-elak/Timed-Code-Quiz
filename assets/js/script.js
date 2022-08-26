@@ -56,7 +56,7 @@ var scoreSort = [];
 // The options object contains sub objects for each possible answer
 var questions = {
 
-  question1: {
+  question: {
     questionTitle: "1: What does one append to code to prevent spaces from sneaking in to user input?",
     options: {
       0: "answer1",
@@ -67,7 +67,7 @@ var questions = {
     answerIndex: "0",
   },
 
-  question2: {
+  question: {
     questionTitle: "2: What does one append to code to prevent spaces from sneaking in to user input?",
     options: {
       0: "answer1",
@@ -78,7 +78,7 @@ var questions = {
     answerIndex: "3",
   },
 
-  question3: {
+  question: {
     questionTitle: "3: What does one append to code to prevent spaces from sneaking in to user input?",
     options: {
       0: "answer1",
@@ -89,7 +89,7 @@ var questions = {
     answerIndex: "3",
   },
 
-  question4: {
+  question: {
     questionTitle: "4: What does one append to code to prevent spaces from sneaking in to user input?",
     options: {
       0: "answer1",
@@ -100,7 +100,7 @@ var questions = {
     answerIndex: "2",
   },
 
-  question5: {
+  question: {
     questionTitle: "5: What does one append to code to prevent spaces from sneaking in to user input?",
     options: {
       0: "answer1",
@@ -119,7 +119,7 @@ var questions = {
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
-
+// When the quiz ends (either by time out or answering all questions)
 function gameOver() {
   // Clear the quiz screen to get ready for the intials entry page
   quizScreen.textContent = '';
@@ -262,10 +262,24 @@ function showQuizSection() {
 }
 
 
+// Function to cycle through all questions
+// CURRENT WORKING POINT 8/26/2022
+function askQuestions() {
+  var currentQuestion = questions.question[q].questionTitle;
+  var questionsLength = Object.entries(questions).length;
+
+  for (q = 0; q < questionsLength; q++) {
+    questionTitle.textContent = currentQuestion;
+  }
+
+};
+
+
  // When button is clicked, show the first question prompt in the list
+ // THIS IS THE OLD VERSION WHERE JUST ONE QUESTION IS ASKED - USING FOR CREATING LOOP
 function askFirstQuestion() {
   // From the questionTitle key, pull the value
-  var currentQuestion = questions.question1.questionTitle;
+  var currentQuestion = questions.question.questionTitle;
   questionTitle.textContent = currentQuestion;
 
   // From the options object, pull the entries
