@@ -38,6 +38,15 @@ var backButton = document.querySelector("#go-back");
 var clearButton = document.querySelector("#clear-highscores");
 var buttonSection = document.querySelector("#button-section");
 
+// Local Storage Variables
+// Object to store all of the highscores in local data
+var highScores = {};
+// Variable for the highest score to compare against
+var highestScore = 0;
+// Array to sort highscores from most to least
+var scoreSort = [];
+
+
 // 2) *~QUESTIONS LIST~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -149,21 +158,27 @@ function gameOver() {
     // Enters your most recent score and initials into local storage
     var initialsText = document.querySelector("#initials");
 
-    var score = timeLeft;
-    var initials = initialsText.value;
+    // If the currentScore is higher than the highestScore
 
-    var highScore = {
-      score: score,
-      initials: initials,
-    };
+    // Log the score as an object with initials: score
+    var initials = initialsText.value.trim();
+    var currentScore = {};
+    currentScore[initials] = timeLeft;
 
-    localStorage.setItem("lastScore", JSON.stringify(highScore));
-    console.log(highScore);
+    console.log("Current score and initials: " + currentScore);
+
+    // Add the current score as an entry into the highscores object
+    highScores = { ...currentScore };
+
+    console.log("Highscores: " + highScores);
+
+
+
 
     // Switch to the highscores screen
     endGameScreen.textContent = '';
-
     highscoresTitle.textContent = "Highscores";
+
 
     // Array of two buttons to create
     var buttons = ["Go Back", "Clear Highscores"];
@@ -177,34 +192,9 @@ function gameOver() {
       buttonSection.appendChild(button);
     }
 
-
-    // Array to store the current and past highscores, and can be saved in local data
-    var highScoresArr = [];
-
-
-    // Use the ordered list to show the top five highscores
-    var showHighscores = function () {
-      // Retrieve the current score array from local data
-      var getHighScores = function () {
-
-      }
-
-    };
-
-    // Show the go back and clear highscores buttons
-
-
-
-    // Creating an array to keep the list of highscores in, and keep this safe in local data
-
-
-    console.log(highScore);
-
-
+  //
 
   }
-
-
 };
 
 
