@@ -23,6 +23,7 @@ var validation = document.querySelector("#validation");
 var answersLength = 4;
 var userAnswer = false;
 var userClicked = document.querySelector("#active-button");
+var newLi = '';
 
 var isWin = false;
 
@@ -227,7 +228,7 @@ function askQuestions() {
     // Then cycle through all the options contained in the currentOptions object
     for (o = 0; o < 4; o++) {
       // Create a new list item
-      var newLi = document.createElement("li");
+
       newLi.textContent = currentOptions[o];
       optionsList.appendChild(newLi);
 
@@ -269,7 +270,6 @@ function askQuestions() {
         } // END onClick function checkAnswer
       } // END newLi assign list
       ) // END Object.assign list
-
 
     } // END for options loop
 
