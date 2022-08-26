@@ -53,62 +53,23 @@ var scoreSort = [];
 // 2) *~QUESTIONS LIST~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// Questions stored in nested object
-// Each question object contains a question Title, options, and the answer index - referencing the location of the correct answer in the options object
-// The options object contains sub objects for each possible answer
-var questions = {
+// Questions have a title, list of options, and the index where the correct answer is stored.
+// Those three variables are saved into a larger index for each question group
+// Then those question groups are saved into a master questionsArr array
 
-  "1: What does one append to code to prevent spaces from sneaking in to user input?": {
-    options: {
-      0: "answer1",
-      1: "answer2",
-      2: "answer3",
-      3: "answer4",
-    },
-    answerIndex: "0",
-  },
+// Each item in questionsArr [question title, [options], index of right answer in options array]
+var questionsArr = [
+  ["1: Question.", ["option1", "option2", "option3", "option4"], 2],
+  ["2: Question.", ["option1", "option2", "option3", "option4"], 1],
+  ["3: Question.", ["option1", "option2", "option3", "option4"], 0],
+  ["4: Question.", ["option1", "option2", "option3", "option4"], 3],
+  ["5: Question.", ["option1", "option2", "option3", "option4"], 1],
+];
 
-  "2: Question2:": {
-    options: {
-      0: "answer1",
-      1: "answer2",
-      2: "answer3",
-      3: "answer4",
-    },
-    answerIndex: "3",
-  },
+var questionsLength = questionsArr.length;
 
-  "3: Question3:": {
-    options: {
-      0: "answer1",
-      1: "answer2",
-      2: "answer3",
-      3: "answer4",
-    },
-    answerIndex: "3",
-  },
-
-  "4: Question4:": {
-    options: {
-      0: "answer1",
-      1: "answer2",
-      2: "answer3",
-      3: "answer4",
-    },
-    answerIndex: "2",
-  },
-
-  "5: Question5:": {
-    options: {
-      0: "answer1",
-      1: "answer2",
-      2: "answer3",
-      3: "answer4",
-    },
-    answerIndex: "1",
-  }
-};
-
+// Keeps track of which question the user is currently on
+var questionsCounter = 0;
 
 
 // 3) *~FUNCTIONS~*
@@ -195,11 +156,6 @@ function gameOver() {
       });
     }
 
-
-
-
-
-
     // Switch to the highscores screen
     endGameScreen.textContent = '';
     highscoresTitle.textContent = "Highscores";
@@ -257,85 +213,69 @@ function showQuizSection() {
   // Show quiz screen (generateElement!!!!)
 }
 
-
-function getNestedIndex() {
-  getFullIndexOfObject('questions')
-
-}
-
-
-
 // Function to cycle through all questions
 // CURRENT WORKING POINT 8/26/2022
 function askQuestions() {
 
-  var questionsLength = Object.entries(questions).length;
-
-
+  // Cycles through all questions in the questions object
   for (q = 0; q < questionsLength; q++) {
+    // Selects the question title
+    var currentTitle = questionsArr[q][0]; // String
+    var currentOptions = questionsArr[q][1]; // Object
+    var answerIndex = questionsArr[q][2]; // Number
 
-    var currentQuestion = currentQuestion = questions.question[q].questionTitle;
+    // Then cycle through all the options contained in the currentOptions object
+    for (o = 0; o < 4; o++) {
+      // Create a new list item
+      var newLi = document.createElement("li");
+      newLi.textContent = currentOptions[o];
+      optionsList.appendChild(newLi);
 
-    questionTitle.textContent = currentQuestion;
-    var answers = Object.entries(questions.question1.options);
-  // We're going to increase the item number until it reaches 3, to signify the index of the answer.
-  var itemNumber = 0;
-  // For each of the found answers inside of the given question object, we can find the value and key for each
-  answers.forEach(([key, value]) => {
-    console.log(value);
-    console.log(key);
+      Object.assign(newLi, {
+        // Assign class, id, and click listener/function
+        className: "active-button",
+        // Assign each list item the index of its matching position in the master array
+        id: o,
+        onclick: function checkAnswer() {
+          // When this item is clicked, it's referencing its uniquely generated id
+          console.log("Clicked " + newLi.id);
+          userAnswer = newLi.id;
+          // realAnswer obtains the value stored in answerIndex, with references the index of the correct item
+          // Verify they are both strings and are going to match.
+          console.log(typeof userAnswer + " " + userAnswer + " " + typeof answerIndex + " " + answerIndex);
 
-    // Create a new list item
-    var newLi = document.createElement("li");
-    Object.assign(newLi, {
-      // Assign class, id, and click listener/function
-      className: "active-button",
-      id: itemNumber,
-      onclick: function checkAnswer() {
-        // When this item is clicked, it's referencing its uniquely generated id
-        console.log("Clicked " + newLi.id);
-        userAnswer = newLi.id;
-        // realAnswer obtains the value stored in answerIndex, with references the index of the correct item
-        var realAnswer = questions.question1.answerIndex;
-        // Verify they are both strings and are going to match.
-        console.log(typeof userAnswer + " " + userAnswer + " " + typeof realAnswer + " " + realAnswer);
-        if (userAnswer === realAnswer) {
-          // Assign the correct message to the class to show it as green
-          console.log("Correct!");
-          timeLeft += 10;
-          var newP = document.createElement("p");
-          Object.assign(newP, {
-            className: "correct-message",
-          })
-          newP.textContent = "Correct!";
-          validation.appendChild(newP);
+          if (userAnswer === answerIndex) {
+            // Assign the correct message to the class to show it as green in validation section
+            console.log("Correct!");
+            timeLeft += 10;
+            var newP = document.createElement("p");
+            Object.assign(newP, {
+               className: "correct-message",
+            });
+            newP.textContent = "Correct!";
+            validation.appendChild(newP);
+
+          } else {
+            // Assign the incorrect message to the class to show it as red in validation section
+            console.log("Sorry, that's incorrect.");
+            timeLeft -= 10;
+            var newP = document.createElement("p");
+            Object.assign(newP, {
+              className: "incorrect-message",
+            });
+            newP.textContent = "Sorry, that's incorrect.";
+            validation.appendChild(newP);
+          }; // END if-else
+        } // END onClick function checkAnswer
+      } // END newLi assign list
+      ) // END Object.assign list
 
 
-        } else {
-          // Assign the incorrect message to the class to show it as red
-          console.log("Sorry, that's incorrect.");
-          timeLeft -= 10;
-          var newP = document.createElement("p");
-          Object.assign(newP, {
-            className: "incorrect-message",
-          })
-          newP.textContent = "Sorry, that's incorrect.";
-          validation.appendChild(newP);
+    } // END for options loop
 
-        };
-      }
-    })
-    // Since we want the id to start at 0 to match the index, only increase the item number after it prints
-    itemNumber++;
-    // Print the content of the value as the newLi text content
-    newLi.textContent = value;
-    // Finally, append this list item as a child of the ul (optionsList)
-    optionsList.appendChild(newLi);
+  } // END for questions loop
 
-  });
-  }
-
-};
+}; // END askQuestions function
 
 
 
