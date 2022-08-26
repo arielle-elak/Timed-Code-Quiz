@@ -37,6 +37,7 @@ var highscoresTitle = document.querySelector("#highscores-title");
 var backButton = document.querySelector("#go-back");
 var clearButton = document.querySelector("#clear-highscores");
 var buttonSection = document.querySelector("#button-section");
+var highScoreList = document.querySelector("#highscores");
 
 // Local Storage Variables
 // Object to store all of the highscores in local data
@@ -163,10 +164,12 @@ function gameOver() {
     // They're both numbers so they can mathematically compare
     console.log(typeof timeLeft + " " + typeof highestScore);
 
-    // Sake of testing
+    // SCORE TESTING VALUE IS 1
+
     timeLeft = 1;
 
-    if ((timeLeft > highestScore) || highScores.index < 5) {
+
+    if (timeLeft > highestScore) {
       // Log the score as an object with initials: score
       var key = initialsText.value.trim();
       console.log(key);
@@ -181,9 +184,22 @@ function gameOver() {
       console.log(object);
       console.log(highScores);
 
+
+
       // And store that object to local storage
       localStorage.setItem("highScores", JSON.stringify(highScores));
+      showHighScoreList();
     }
+
+    function showHighScoreList() {
+      Object.keys(highScores).forEach(key => {
+        let scoreEntry = document.createElement("li");
+        scoreEntry.textContent = key + " " + highScores[key];
+        highScoreList.appendChild(scoreEntry);
+      });
+    }
+
+
 
 
 
