@@ -33,6 +33,7 @@ var initialsArea = document.querySelector("#initials-area");
 
 // High score screen selectors
 var highscoreScreen = document.querySelector("#highscores-section");
+var highscoresTitle = document.querySelector("#highscores-title");
 var backButton = document.querySelector("#go-back");
 var clearButton = document.querySelector("#clear-highscores");
 
@@ -142,9 +143,10 @@ function gameOver() {
   input.className = "submit"; // set the CSS class
   initialsArea.appendChild(input);
 
+  // When the submit button is pressed, a bunch of things happen:
   var submitButton = document.querySelector("#submit");
   submitButton.onclick = function () {
-     // Enters your most recent score and initials into local storage
+    // Enters your most recent score and initials into local storage
     var initialsText = document.querySelector("#initials");
 
     var score = timeLeft;
@@ -160,6 +162,31 @@ function gameOver() {
 
     // Switch to the highscores screen
     endGameScreen.textContent = '';
+
+    highscoresTitle.textContent = "Highscores";
+
+    backButton.classList.add('active-button');
+    backButton.textContent = "Go Back";
+
+    clearButton.classList.add('active-button');
+    clearButton.textContent = "Clear Highscores";
+
+
+    // Use the ordered list to show the top five highscores
+    var setHighScoreText = function () {
+
+    };
+
+    // Show the go back and clear highscores buttons
+
+
+
+    // Creating an array to keep the list of highscores in, and keep this safe in local data
+    var highScoresArr = [];
+
+    console.log(highScore);
+
+
 
   }
 
