@@ -32,7 +32,7 @@ var initialsArea = document.querySelector("#initials-area");
 
 
 // High score screen selectors
-var highscoreScreen = document.querySelector("#highscores");
+var highscoreScreen = document.querySelector("#highscores-section");
 var backButton = document.querySelector("#go-back");
 var clearButton = document.querySelector("#clear-highscores");
 
@@ -145,18 +145,24 @@ function gameOver() {
   var submitButton = document.querySelector("#submit");
   submitButton.onclick = function () {
      // Enters your most recent score and initials into local storage
-  var initialsText = document.querySelector("#initials");
+    var initialsText = document.querySelector("#initials");
 
-  var score = timeLeft;
-  var initials = initialsText.value;
+    var score = timeLeft;
+    var initials = initialsText.value;
 
-  var highScore = {
-    score: score,
-    initials: initials,
-  };
+    var highScore = {
+      score: score,
+      initials: initials,
+    };
 
-  localStorage.setItem("lastScore", JSON.stringify(highScore));
+    localStorage.setItem("lastScore", JSON.stringify(highScore));
+    console.log(highScore);
+
+    // Switch to the highscores screen
+    endGameScreen.textContent = '';
+
   }
+
 
 };
 
