@@ -159,18 +159,31 @@ function gameOver() {
     var initialsText = document.querySelector("#initials");
 
     // If the currentScore is higher than the highestScore
+    console.log(timeLeft + " " + highestScore);
+    // They're both numbers so they can mathematically compare
+    console.log(typeof timeLeft + " " + typeof highestScore);
 
-    // Log the score as an object with initials: score
-    var initials = initialsText.value.trim();
-    var currentScore = {};
-    currentScore[initials] = timeLeft;
+    // Sake of testing
+    timeLeft = 1;
 
-    console.log("Current score and initials: " + currentScore);
+    if ((timeLeft > highestScore) || highScores.index < 5) {
+      // Log the score as an object with initials: score
+      var key = initialsText.value.trim();
+      console.log(key);
 
-    // Add the current score as an entry into the highscores object
-    highScores = { ...currentScore };
+      var object = {};
+      console.log(object);
 
-    console.log("Highscores: " + highScores);
+      object[key] = timeLeft;
+
+      // Add the current score as an entry into the highscores object
+      highScores = { ...object };
+      console.log(object);
+      console.log(highScores);
+
+      // And store that object to local storage
+      localStorage.setItem("highScores", JSON.stringify(highScores));
+    }
 
 
 
