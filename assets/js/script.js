@@ -89,6 +89,7 @@ function showHighScoreScreen() {
   startScreen.textContent = '';
   quizScreen.textContent = '';
   endGameScreen.textContent = '';
+  showHighScoreList();
 };
 
 // When the quiz ends (either by time out or answering all questions)

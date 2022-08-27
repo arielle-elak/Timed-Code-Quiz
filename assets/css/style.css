@@ -21,11 +21,11 @@ header {
     justify-content: space-between;
 }
 
-#view-highscores a {
+#view-highscores {
     text-decoration: none;
 }
 
-#view-highscores a:hover {
+#view-highscores:hover {
     text-decoration: underline;
 }
 
