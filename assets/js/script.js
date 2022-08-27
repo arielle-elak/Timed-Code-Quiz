@@ -172,6 +172,7 @@ function gameOver() {
 
     // Array of two buttons to create
     var buttons = ["Go Back", "Clear Highscores"];
+
     // Create two buttons in the buttonSection
     for (i = 0; i < 2; i++) {
       let button = document.createElement("button");

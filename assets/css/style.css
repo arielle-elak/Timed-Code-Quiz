@@ -92,8 +92,16 @@ input[type="button"] {
 /*==============================
     Question Button Behavior
 ==============================*/
+#options-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #options-list > * {
     width: 15rem;
+
 }
 
 #start-quiz {
