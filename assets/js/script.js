@@ -207,28 +207,24 @@ function timerScore() {
   timer = setInterval(function() {
     timeLeft--;
     topTimer.textContent = "Time Left: " + timeLeft;
-    if (timeLeft => 0) {
+    if (timeLeft >= 0) {
       // Tests if win condition is met
-      if (timeLeft > 0 && questionsCounter === 6) {
-        // Clears interval and stops timer AND hides the timer
-        gameOver();
-        console.log(timeLeft);
-      }
-
-      // Tests if time has run out - need to account for accidental negative time values
-      if (timeLeft <= 0) {
-        // Clears interval AND hides the timer
-        // Clear the timer and the content from the top
+      if (questionsCounter === 6 && timeLeft > 0) {
+        // Clears interval and stops timer
         clearInterval(timer);
-        topTimer.textContent = '';
         gameOver();
-        console.log(timeLeft);
+        console.log("Answered all questions")
       }
     }
-// Set time interval to 1 second (1000 milliseconds)
+    // Tests if time has run out
+    if (timeLeft === 0) {
+      // Clears interval
+      clearInterval(timer);
+      gameOver();
+      console.log("Ran out of time")
+    }
   }, 1000);
 }
-
 
 // When the Start Quiz button is pressed
 function showQuizSection() {
@@ -268,7 +264,8 @@ function askQuestions() {
   option3.textContent = currentOptions[3];
 
 } else {
-  gameOver();
+    gameOver();
+    console.log ("Condition for stopping asking quesitons")
 }
 
 }; // END askQuestions function
