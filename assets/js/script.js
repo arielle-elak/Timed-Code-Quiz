@@ -84,10 +84,15 @@ var questionsCounter = 0;
 // 3) *~FUNCTIONS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+function showHighScoreScreen() {
+  // If clicked from anywhere, delete all other sections
+  startScreen.textContent = '';
+  quizScreen.textContent = '';
+  endGameScreen.textContent = '';
+};
 
 // When the quiz ends (either by time out or answering all questions)
 function gameOver() {
-
 
   // Clear the quiz screen to get ready for the intials entry page
   quizScreen.textContent = '';
@@ -151,53 +156,52 @@ function gameOver() {
 
       // And store that object to local storage
       localStorage.setItem("highScores", JSON.stringify(highScores));
-      showHighScoreList();
-    }
-
-    function showHighScoreList() {
-      Object.keys(highScores).forEach(key => {
-        let scoreEntry = document.createElement("li");
-        scoreEntry.textContent = key + " " + highScores[key];
-        highScoreList.appendChild(scoreEntry);
-      });
-    }
-
-    // Switch to the highscores screen
-    endGameScreen.textContent = '';
-    highscoresTitle.textContent = "Highscores";
-
-
-    // Array of two buttons to create
-    var buttons = ["Go Back", "Clear Highscores"];
-
-    // Create two buttons in the buttonSection
-    for (i = 0; i < 2; i++) {
-      let button = document.createElement("button");
-      button.innerHTML = buttons[i];
-      button.classList = 'active-button';
-      // Add in an identifier for the on-click events
-      button.id = "score-buttons"+"-"+i;
-      buttonSection.appendChild(button);
-    }
-
-    var backButton = document.querySelector("#score-buttons-0");
-    var clearButton = document.querySelector("#score-buttons-1");
-
-    // Go back button will reload the page keeping the high scores in tact
-    backButton.onclick = function () {
-      location.reload();
     };
-
-    // Clear button will remove everything in local storage and clear the highscore list
-    clearButton.onclick = function () {
-      localStorage.clear();
-      highScoreList.textContent = '';
-    };
-
-
-
-  } // END Submit on click
+    // Print the highscores to the page
+    showHighScoreList();
+  }; // END Submit on click
 };
+
+
+
+function showHighScoreList() {
+  Object.keys(highScores).forEach(key => {
+    let scoreEntry = document.createElement("li");
+    scoreEntry.textContent = key + " " + highScores[key];
+    highScoreList.appendChild(scoreEntry);
+  });
+  // Switch to the highscores screen
+  endGameScreen.textContent = '';
+  highscoresTitle.textContent = "Highscores";
+
+
+  // Array of two buttons to create
+  var buttons = ["Go Back", "Clear Highscores"];
+
+  // Create two buttons in the buttonSection
+  for (i = 0; i < 2; i++) {
+    let button = document.createElement("button");
+    button.innerHTML = buttons[i];
+    button.classList = 'active-button';
+    // Add in an identifier for the on-click events
+    button.id = "score-buttons"+"-"+i;
+    buttonSection.appendChild(button);
+  }
+
+  var backButton = document.querySelector("#score-buttons-0");
+  var clearButton = document.querySelector("#score-buttons-1");
+
+  // Go back button will reload the page keeping the high scores in tact
+  backButton.onclick = function () {
+    location.reload();
+  };
+
+  // Clear button will remove everything in local storage and clear the highscore list
+  clearButton.onclick = function () {
+    localStorage.clear();
+    highScoreList.textContent = '';
+  };
+}; // END showHighScore list function
 
 
 
@@ -263,10 +267,8 @@ function askQuestions() {
   option2.textContent = currentOptions[2];
   option3.textContent = currentOptions[3];
 
-} else {
-    gameOver();
-    console.log ("Condition for stopping asking quesitons")
-}
+  console.log ("Still asking quesitons (questions counter not reached 6)")
+  };
 
 }; // END askQuestions function
 
