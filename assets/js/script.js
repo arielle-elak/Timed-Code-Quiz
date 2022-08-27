@@ -88,9 +88,6 @@ var questionsCounter = 0;
 // When the quiz ends (either by time out or answering all questions)
 function gameOver() {
 
-  // Clear the timer and the content from the top
-  clearInterval(timer);
-  topTimer.textContent = '';
 
   // Clear the quiz screen to get ready for the intials entry page
   quizScreen.textContent = '';
@@ -210,7 +207,7 @@ function timerScore() {
   timer = setInterval(function() {
     timeLeft--;
     topTimer.textContent = "Time Left: " + timeLeft;
-    if (timeLeft > 0) {
+    if (timeLeft => 0) {
       // Tests if win condition is met
       if (timeLeft > 0 && questionsCounter === 6) {
         // Clears interval and stops timer AND hides the timer
@@ -221,6 +218,9 @@ function timerScore() {
       // Tests if time has run out - need to account for accidental negative time values
       if (timeLeft <= 0) {
         // Clears interval AND hides the timer
+        // Clear the timer and the content from the top
+        clearInterval(timer);
+        topTimer.textContent = '';
         gameOver();
         console.log(timeLeft);
       }
