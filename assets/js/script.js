@@ -79,12 +79,12 @@ var scoreSort = [];
 
 
 var questionsArr = [
-  ["1: Question.", ["1option1", "1option2", "1option3", "1option4"], 2],
-  ["2: Question.", ["2option1", "2option2", "2option3", "2option4"], 1],
-  ["3: Question.", ["3option1", "3option2", "3option3", "3option4"], 0],
-  ["4: Question.", ["4option1", "4option2", "4option3", "4option4"], 3],
-  ["5: Question.", ["5option1", "5option2", "5option3", "5option4"], 1],
-  ["6: Question.", ["6option1", "6option2", "6option3", "6option4"], 2],
+  ["1: The earliest usage of the word 'OMG' can be traced back to _____.", ["1999", "1986", "1917", "1841"], 2],
+  ["2: What color were stop signs prior to 1954?", ["Orange", "Yellow", "Green", "Purple"], 1],
+  ["3: The _____ is the powerhouse of the cell.", ["Mitochondria", "Nucleus", "Endoplasmic Eeticulum", "Golgi Complex"], 0],
+  ["4: Which of the following Hershey's products are vegan?", ["Ritz Crackers", "DumDums", "Oreos", "All the above"], 3],
+  ["5: What is the clinical term for the fear of vegetables?", ["Herbaphobia ", "Chlorophobia", "Vegephobia", "Lachanophobia"], 3],
+  ["6: How many eyes does the Black Widow spider have?", ["24", "16", "8", "4"], 2],
 ];
 
 var questionsLength = questionsArr.length;

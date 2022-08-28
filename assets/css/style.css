@@ -31,7 +31,7 @@ header {
     cursor: grab;
 }
 
-#start,#quiz-section, #end-game, #highscores-title, #highscores  {
+#start,#quiz-section, #end-game, #highscores-title  {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -79,9 +79,32 @@ input[type="button"] {
     justify-content: center;
 }
 
-#highscores {
+ol#highscores {
     text-align: left;
+    padding: 0;
 }
+
+#highscores li {
+    background-color: rgb(160, 91, 160);
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    padding: .5rem;
+    color: white;
+    counter-increment: item;
+}
+
+/*Style the ordered list items so they don't get lost in the white color of the list*/
+#highscores li:before {
+    content: counter(item);
+    color: white;
+    width: 1.2em;
+    text-align: center;
+    display: inline-block;
+    margin-right: 1rem;
+    font-weight: bold;
+}
+
+
 
 /*==============================
           Game Logic
