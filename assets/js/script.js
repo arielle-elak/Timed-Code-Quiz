@@ -41,16 +41,17 @@ var initialsText = document.querySelector("#initials");
 
 
 // High score screen selectors
-
 var highscoreScreen = document.querySelector("#highscores-section");
 var highscoresTitle = document.querySelector("#highscores-title");
 var buttonSection = document.querySelector("#button-section");
 var highScoreList = document.querySelector("#highscores");
 var highestScores = [];
 
-// Local Storage Constants
-const highScoreAmount = 10;
-const highScores = 'highScores';
+// Local Storage Variables
+// Object to store all of the highscores in local data
+var highScores = {};
+// Array to sort highscores from most to least
+var scoreSort = [];
 
   // Go back button will reload the page keeping the high scores in tact
   function goBack() {
@@ -95,66 +96,18 @@ var questionsCounter = 0;
 // 3) *~FUNCTIONS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
- // When the submit button is pressed
+// When the submit button is pressed
 var submitScore = function () {
   var initials = initialsText.value;
   var score = timeLeft;
 
-// Variable currentScore grabs the initials and score that were just entered by the user
-  var currentScore = {
+
+  var highScore = {
     initials: initials,
     score: score
   };
 
-  // And adds it to a local storage object called lastScore
-  localStorage.setItem("lastScore", JSON.stringify(currentScore));
-
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  START THE FUNCTIONS I STILL NEED TO CREATE
-  /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  */
-
-  // Function to check if current score is greater than lowest score in highscore object,
-  function checkHighScore() {
-
-    var highScores = JSON.parse(localStorage.getItem('highScores'));
-    // If the highScore object does not yet exist in local storage create an empty array
-    if (highScores === null) {
-      highScoresArr = [];
-      console.log("Created highScores array");
-      // Inject the current score and initials as an object in the array
-      highScoresArr[initials] = score;
-
-    };
-    console.log(highScoresArr);
-
-    for (var key of Object.keys(highScoresArr)) {
-      var newLi = document.createElement("li");
-      newLi.textContent = (key + ": " + highScoresArr[key]);
-      highScoreList.appendChild(newLi);
-  }
-
-
-  };
-
-  checkHighScore();
-
-  // Function to add the current score to the list of highscores if it passes the checkHighScore function
-  function addHighScore() {
-
-  }
-
-  // Function to sort highscores object by order of score values
-  function sortScores() {
-
-  };
-
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  END THE FUNCTIONS I STILL NEED TO CREATE
-  /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  */
-
-  // Then shows the highscores page
+  localStorage.setItem("lastScore", JSON.stringify(highScore));
   showHighScorePage();
 
 };
@@ -180,6 +133,7 @@ function gameOver() {
 }; // END Submit on click
 
 
+
 function showHighScorePage() {
   // Hide the home screen if pressed from home
   startScreen.textContent = '';
@@ -191,20 +145,6 @@ function showHighScorePage() {
   endTitleArea.textContent = '';
   highscoresTitle.textContent = "Highscores";
 
-
-  // Show the sorted list of highscores from local storage in the form of a list
-  var grabHighScores = function() {
-    localStorage.getItem("highScores");
-
-      Object.keys(highScores).forEach(key => {
-        let scoreEntry = document.createElement("li");
-        scoreEntry.textContent = key + " " + highScores[key];
-        highScoreList.appendChild(scoreEntry);
-      });
-    // Switch to the highscores screen
-    endGameScreen.textContent = '';
-    highscoresTitle.textContent = "Highscores";
-  };
 
   // Create the Go Back button and assign it as child to button Section
   let backButton = document.createElement("button");
@@ -229,7 +169,6 @@ function showHighScorePage() {
   clearButton.addEventListener("click", clearScores);
 
 }; // END showHighScore list function
-
 
 
 
