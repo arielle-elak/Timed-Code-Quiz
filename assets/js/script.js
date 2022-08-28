@@ -1,5 +1,5 @@
 
-
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // 1) *~SELECTORS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -34,6 +34,9 @@ var option3 = document.getElementById("3");
 var endGameScreen = document.querySelector("#end-game");
 var endTitleArea = document.querySelector("#title-area")
 var initialsArea = document.querySelector("#initials-area");
+var initialsInput = document.getElementById("initials");
+var initialsText = document.querySelector("#initials");
+
 
 
 
@@ -42,16 +45,16 @@ var highscoreScreen = document.querySelector("#highscores-section");
 var highscoresTitle = document.querySelector("#highscores-title");
 var buttonSection = document.querySelector("#button-section");
 var highScoreList = document.querySelector("#highscores");
+var highestScores = [];
 
 // Local Storage Variables
 // Object to store all of the highscores in local data
 var highScores = {};
-// Variable for the highest score to compare against
-var highestScore = 0;
 // Array to sort highscores from most to least
 var scoreSort = [];
 
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // 2) *~QUESTIONS LIST~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -80,16 +83,23 @@ var questionsCounter = 0;
 
 
 
-
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // 3) *~FUNCTIONS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-function showHighScoreScreen() {
-  // If clicked from anywhere, delete all other sections
-  startScreen.textContent = '';
-  quizScreen.textContent = '';
-  endGameScreen.textContent = '';
-  showHighScoreList();
+// When the submit button is pressed
+var submitScore = function () {
+  var initials = initialsText.value;
+  var score = timeLeft;
+
+
+  var highScore = {
+    initials: initials,
+    score: score
+  };
+
+  localStorage.setItem("lastScore", JSON.stringify(highScore));
+
 };
 
 // When the quiz ends (either by time out or answering all questions)
@@ -98,74 +108,32 @@ function gameOver() {
   // Clear the quiz screen to get ready for the intials entry page
   quizScreen.textContent = '';
 
-  initialsArea.setAttribute("id", "initials-reveal");
+  initialsArea.setAttribute("style", "display: flex");
 
+  // Show the "All Done!" h2 title
   var enterScoreTitle = endGameScreen.children[0].children[0];
   enterScoreTitle.textContent = "All done!"
   endTitleArea.appendChild(enterScoreTitle);
 
-
+  // Take the remaining time and show your final score
   var finalScore = document.createElement('p');
   finalScore.textContent = "Your final score is: " + timeLeft;
   endTitleArea.appendChild(finalScore);
 
-  var finalScore = document.createElement('p');
-  finalScore.textContent = "Please enter your initials:";
-  initialsArea.appendChild(finalScore);
-
-
-  var input = document.createElement("input");
-  input.type = "text";
-  input.id = "initials";
-  input.className = ""; // set the CSS class
-  initialsArea.appendChild(input);
-
-  var input = document.createElement("input");
-  input.type = "button";
-  input.value = "Submit";
-  input.id = "submit";
-  input.className = "submit"; // set the CSS class
-  initialsArea.appendChild(input);
-
-  // When the submit button is pressed, a bunch of things happen:
-  var submitButton = document.querySelector("#submit");
-  submitButton.onclick = function () {
-    // Enters your most recent score and initials into local storage
-    var initialsText = document.querySelector("#initials");
-
-    // If the currentScore is higher than the highestScore
-    console.log(timeLeft + " " + highestScore);
-    // They're both numbers so they can mathematically compare
-    console.log(typeof timeLeft + " " + typeof highestScore);
-
-    if (timeLeft > highestScore) {
-      // Log the score as an object with initials: score
-      var key = initialsText.value.trim();
-      console.log(key);
-
-      var object = {};
-      console.log(object);
-
-      object[key] = timeLeft;
-
-
-
-      // Add the current score as an entry into the highscores object
-      highScores = { ...object };
-      console.log(object);
-      console.log(highScores);
-
-      // And store that object to local storage
-      localStorage.setItem("highScores", JSON.stringify(highScores));
-    };
-    // Print the highscores to the page
-    showHighScoreList();
-  }; // END Submit on click
-};
+}; // END Submit on click
 
 
 
 function showHighScoreList() {
+  // Hide the home screen if pressed from home
+  startScreen.textContent = '';
+  // Hide the quiz screen if pressed from screen
+  quizScreen.textContent = '';
+  // Hide the link so it can't be accidentally pressed more
+  scoreLink.setAttribute("style", "display: none");
+
+  localStorage.getItem("highScores");
+
   Object.keys(highScores).forEach(key => {
     let scoreEntry = document.createElement("li");
     scoreEntry.textContent = key + " " + highScores[key];
@@ -212,7 +180,7 @@ function timerScore() {
   timer = setInterval(function() {
     timeLeft--;
     topTimer.textContent = "Time Left: " + timeLeft;
-    if (timeLeft >= 0) {
+    if (timeLeft > 0) {
       // Tests if win condition is met
       if (questionsCounter === 6 && timeLeft > 0) {
         // Clears interval and stops timer
@@ -222,7 +190,7 @@ function timerScore() {
       }
     }
     // Tests if time has run out
-    if (timeLeft === 0) {
+    if (timeLeft <= 0) {
       // Clears interval
       clearInterval(timer);
       gameOver();
@@ -312,7 +280,7 @@ function checkAnswer(userAnswer) {
 
   setTimeout(() => {
     validationMessage.textContent = '';
-  }, "2000")
+  }, "1200")
 
 } // END checkAnswers function
 
@@ -329,12 +297,7 @@ function startQuiz() {
   askQuestions();
 };
 
-function startOver() {
-  location.reload();
-};
-
-
-
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // 4) *~LISTENERS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
