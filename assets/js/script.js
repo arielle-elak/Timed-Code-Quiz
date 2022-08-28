@@ -155,6 +155,12 @@ var submitScore = function () {
 // START showHighScorePage
 function showHighScorePage() {
 
+  // Make sure the timer stops running and resets itself
+  clearInterval(timer);
+  timeLeft = 60;
+  // And hides until the quiz screen shows again
+  scoreLink.setAttribute("style", "display: none");
+
   // Retrieve the current list of highscores from local storage
   var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
 
@@ -248,6 +254,8 @@ function showQuizSection() {
   startScreen.textContent = '';
   // Show quiz screen
   quizScreen.setAttribute("style", "display: block");
+  // Show the timer
+  scoreLink.setAttribute("style", "display: block");
 }
 // END showQuizSection
 
