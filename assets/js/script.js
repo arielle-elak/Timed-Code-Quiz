@@ -64,6 +64,7 @@ var scoreSort = [];
     highScoreList.textContent = '';
 };
 
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // 2) *~QUESTIONS LIST~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -97,29 +98,7 @@ var questionsCounter = 0;
 // 3) *~FUNCTIONS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// When the submit button is pressed
-var submitScore = function () {
-  var initials = initialsText.value;
-  var score = timeLeft;
-
-
-  var highScore = {
-    initials: initials,
-    score: score
-  };
-
-  var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray")) || [];
-  console.log("submitScore - retreived highScoresArray from localStorage" + highScoresArray);
-
-  highScoresArray.push(highScore);
-  console.log("submitScore - pushed highScore into highScoresArray" + highScoresArray);
-
-  localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
-
-  showHighScorePage();
-
-};
-
+// START gameOver
 // When the quiz ends (either by time out or answering all questions)
 function gameOver() {
 
@@ -138,20 +117,65 @@ function gameOver() {
   finalScore.textContent = "Your final score is: " + timeLeft;
   endTitleArea.appendChild(finalScore);
 
+}; // END gameOver
 
 
 
-}; // END Submit on click
+// START submitScore
+// When the submit button is pressed
+var submitScore = function () {
+  var score = timeLeft;
+  var initials = initialsText.value;
+
+  console.log("Score submitted: " + score + " " + initials);
+
+  // Create an object that contains the score and initials info from the current score entry
+  var currentScore = { "score": score, "initials": initials };
+  var currentScoreParsed = JSON.parse(currentScore);
+
+  console.log("Current Score: " + currentScoreParsed);
+
+  // If there is no highScoresArray object in localStorage, create an empty one. Otherwise parse and pull it up.
+  var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray")) || [];
+  console.log("submitScore - retreived highScoresArray from localStorage" + highScoresArray);
 
 
+  // Add the currentScore object as an entry into the empty array
+  highScoresArray.push(currentScore);
+  console.log("submitScore - pushed highScore into highScoresArray " + highScoresArray);
+
+  localStorage.setItem("highScoresArray", highScoresArray);
+
+  showHighScorePage();
+
+};
+// END submitScore
 
 
+// START showHighScorePage
 function showHighScorePage() {
 
-
+  // Retrieve the current list of highscores from local storage
   var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
 
   console.log("showHighScorePage - localStorage retrieved" + highScoresArray);
+
+  // Sort and display highscores on page
+
+  // 1: Sort the array in order of highest score
+  highScoresArray.sort(function (x, y) {
+    return x.score + y.score;
+  });
+  console.log("Sorted array of scores: " + highScoresArray);
+
+  // 2: Print each value of initials and score as a pair in a new list item in the highscores ordered list
+  highScoresArray.forEach(function(entry) {
+    const newLi = document.createElement('li');
+    newLi.text = entry.initials + entry.score;
+    highScoreList.appendChild(newLi);
+})
+
+
 
 
   // Hide the home screen if pressed from home
@@ -187,11 +211,12 @@ function showHighScorePage() {
   // When clear button is clicked, clear the highscores from localstorage and hide the existing list
   clearButton.addEventListener("click", clearScores);
 
-}; // END showHighScore list function
+};
+// END showHighScorePage
 
 
 
-// TIMER
+// START timerScore
 function timerScore() {
   // Sets timer
   timer = setInterval(function() {
@@ -214,8 +239,10 @@ function timerScore() {
       console.log("Ran out of time")
     }
   }, 1000);
-}
+};
+// END timerScore
 
+// START showQuizSection
 // When the Start Quiz button is pressed
 function showQuizSection() {
   // Hide start screen
@@ -223,7 +250,9 @@ function showQuizSection() {
   // Show quiz screen
   quizScreen.setAttribute("style", "display: block");
 }
+// END showQuizSection
 
+// START askQuestions
 // Function to cycle through all questions
 // CURRENT WORKING POINT 8/26/2022
 function askQuestions() {
@@ -256,8 +285,10 @@ function askQuestions() {
   console.log ("Still asking quesitons (questions counter not reached 6)")
   };
 
-}; // END askQuestions function
+};
+// END askQuestions
 
+// START checkAnswer
 // checkAnswer runs when HTML is clicked - sends the userAnswer value to the function for checking
 function checkAnswer(userAnswer) {
   // q value will equal the values for the current question
@@ -299,10 +330,11 @@ function checkAnswer(userAnswer) {
     validationMessage.textContent = '';
   }, "1200")
 
-} // END checkAnswers function
+}
+// END checkAnswers
 
 
-
+// START startQuiz
 // When the Start Quiz Button is pressed
 function startQuiz() {
 
@@ -313,6 +345,7 @@ function startQuiz() {
   // Start question asking loop function
   askQuestions();
 };
+// END startQuiz
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // 4) *~LISTENERS~*
