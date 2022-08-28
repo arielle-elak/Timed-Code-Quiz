@@ -131,9 +131,8 @@ var submitScore = function () {
 
   // Create an object that contains the score and initials info from the current score entry
   var currentScore = { "score": score, "initials": initials };
-  var currentScoreParsed = JSON.parse(currentScore);
 
-  console.log("Current Score: " + currentScoreParsed);
+  console.log("Current score ", currentScore);
 
   // If there is no highScoresArray object in localStorage, create an empty one. Otherwise parse and pull it up.
   var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray")) || [];
@@ -142,9 +141,10 @@ var submitScore = function () {
 
   // Add the currentScore object as an entry into the empty array
   highScoresArray.push(currentScore);
-  console.log("submitScore - pushed highScore into highScoresArray " + highScoresArray);
+  console.log("submitScore - pushed highScore into highScoresArray ", highScoresArray);
 
-  localStorage.setItem("highScoresArray", highScoresArray);
+  // Stringify and set the highScoresArray to local storage
+  localStorage.setItem('highScoresArray', JSON.stringify(highScoresArray));
 
   showHighScorePage();
 
@@ -158,7 +158,7 @@ function showHighScorePage() {
   // Retrieve the current list of highscores from local storage
   var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
 
-  console.log("showHighScorePage - localStorage retrieved" + highScoresArray);
+  console.log("showHighScorePage - localStorage retrieved", highScoresArray);
 
   // Sort and display highscores on page
 
@@ -166,7 +166,7 @@ function showHighScorePage() {
   highScoresArray.sort(function (x, y) {
     return x.score + y.score;
   });
-  console.log("Sorted array of scores: " + highScoresArray);
+  console.log("Sorted array of scores: ", highScoresArray);
 
   // 2: Print each value of initials and score as a pair in a new list item in the highscores ordered list
   highScoresArray.forEach(function(entry) {
