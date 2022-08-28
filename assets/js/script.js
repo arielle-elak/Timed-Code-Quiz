@@ -56,6 +56,7 @@ var scoreSort = [];
 // Go back button will reload the page keeping the high scores in tact
   function goBack() {
     location.reload();
+    timeLeft = 60;
   };
 
 // Clear button will remove everything in local storage and clear the highscore list
@@ -119,6 +120,10 @@ function gameOver() {
 
 }; // END gameOver
 
+function highScoreLinkClicked() {
+  clearInterval(timer);
+  showHighScorePage();
+}
 
 
 // START submitScore
@@ -155,12 +160,6 @@ var submitScore = function () {
 // START showHighScorePage
 function showHighScorePage() {
 
-  // Make sure the timer stops running and resets itself
-  clearInterval(timer);
-  timeLeft = 60;
-  // And hides until the quiz screen shows again
-  scoreLink.setAttribute("style", "display: none");
-
   // Retrieve the current list of highscores from local storage
   var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
 
@@ -169,17 +168,30 @@ function showHighScorePage() {
   // Sort and display highscores on page
 
   // 1: Sort the array in order of highest score
+  function compare( a, b ) {
+    if ( a.score > b.score ){
+      return -1;
+    }
+    if ( a.lscore < b.score ){
+      return 1;
+    }
+    return 0;
+  }
+
+  highScoresArray.sort( compare );
+
+
   highScoresArray.sort(function (x, y) {
     return x.score + y.score;
   });
   console.log("Sorted array of scores: ", highScoresArray);
 
   // 2: Print each value of initials and score as a pair in a new list item in the highscores ordered list
-  highScoresArray.forEach(function(entry) {
+  highScoresArray.forEach(function (entry) {
     const newLi = document.createElement('li');
-    newLi.textContent = entry.initials + ": " + entry.score;
+    newLi.textContent = entry.initials + " : " + entry.score;
     highScoreList.appendChild(newLi);
-})
+  });
 
 
 
@@ -254,8 +266,6 @@ function showQuizSection() {
   startScreen.textContent = '';
   // Show quiz screen
   quizScreen.setAttribute("style", "display: block");
-  // Show the timer
-  scoreLink.setAttribute("style", "display: block");
 }
 // END showQuizSection
 

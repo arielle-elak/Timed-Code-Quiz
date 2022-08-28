@@ -79,6 +79,9 @@ input[type="button"] {
     justify-content: center;
 }
 
+#highscores {
+    text-align: left;
+}
 
 /*==============================
           Game Logic
