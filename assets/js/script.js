@@ -53,7 +53,16 @@ var highScores = {};
 // Array to sort highscores from most to least
 var scoreSort = [];
 
+  // Go back button will reload the page keeping the high scores in tact
+  function goBack() {
+    location.reload();
+  };
 
+  // Clear button will remove everything in local storage and clear the highscore list
+ function clearScores() {
+    localStorage.clear();
+    highScoreList.textContent = '';
+  };
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // 2) *~QUESTIONS LIST~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -99,7 +108,7 @@ var submitScore = function () {
   };
 
   localStorage.setItem("lastScore", JSON.stringify(highScore));
-  showHighScoreList();
+  showHighScorePage();
 
 };
 
@@ -125,7 +134,7 @@ function gameOver() {
 
 
 
-function showHighScoreList() {
+function showHighScorePage() {
   // Hide the home screen if pressed from home
   startScreen.textContent = '';
   // Hide the quiz screen if pressed from screen
@@ -137,17 +146,7 @@ function showHighScoreList() {
   highscoresTitle.textContent = "Highscores";
 
 
-  // Go back button will reload the page keeping the high scores in tact
- function goBack() {
-    location.reload();
-  };
-
-  // Clear button will remove everything in local storage and clear the highscore list
- function clearScores() {
-    localStorage.clear();
-    highScoreList.textContent = '';
-  };
-
+  // Create the Go Back button and assign it as child to button Section
   let backButton = document.createElement("button");
   backButton.textContent = "Go Back";
   backButton.classList = 'active-button';
@@ -155,12 +154,19 @@ function showHighScoreList() {
   backButton.id = "score-buttons-0";
   buttonSection.appendChild(backButton);
 
+   // Create the Clear Highscores button and assign it as child to button Section
   let clearButton = document.createElement("button");
   clearButton.textContent = "Clear Highscores";
   clearButton.classList = 'active-button';
   // Add in an identifier for the on-click events
   clearButton.id = "score-buttons-1";
   buttonSection.appendChild(clearButton);
+
+  // When back button is clicked, go back to main page
+  backButton.addEventListener("click", goBack);
+
+  // When clear button is clicked, clear the highscores from localstorage and hide the existing list
+  clearButton.addEventListener("click", clearScores);
 
 }; // END showHighScore list function
 
