@@ -99,6 +99,7 @@ var submitScore = function () {
   };
 
   localStorage.setItem("lastScore", JSON.stringify(highScore));
+  showHighScoreList();
 
 };
 
@@ -131,45 +132,36 @@ function showHighScoreList() {
   quizScreen.textContent = '';
   // Hide the link so it can't be accidentally pressed more
   scoreLink.setAttribute("style", "display: none");
-
-  localStorage.getItem("highScores");
-
-  Object.keys(highScores).forEach(key => {
-    let scoreEntry = document.createElement("li");
-    scoreEntry.textContent = key + " " + highScores[key];
-    highScoreList.appendChild(scoreEntry);
-  });
-  // Switch to the highscores screen
-  endGameScreen.textContent = '';
+  initialsArea.setAttribute("style", "display: none");
+  endTitleArea.textContent = '';
   highscoresTitle.textContent = "Highscores";
 
 
-  // Array of two buttons to create
-  var buttons = ["Go Back", "Clear Highscores"];
-
-  // Create two buttons in the buttonSection
-  for (i = 0; i < 2; i++) {
-    let button = document.createElement("button");
-    button.innerHTML = buttons[i];
-    button.classList = 'active-button';
-    // Add in an identifier for the on-click events
-    button.id = "score-buttons"+"-"+i;
-    buttonSection.appendChild(button);
-  }
-
-  var backButton = document.querySelector("#score-buttons-0");
-  var clearButton = document.querySelector("#score-buttons-1");
-
   // Go back button will reload the page keeping the high scores in tact
-  backButton.onclick = function () {
+ function goBack() {
     location.reload();
   };
 
   // Clear button will remove everything in local storage and clear the highscore list
-  clearButton.onclick = function () {
+ function clearScores() {
     localStorage.clear();
     highScoreList.textContent = '';
   };
+
+  let backButton = document.createElement("button");
+  backButton.textContent = "Go Back";
+  backButton.classList = 'active-button';
+  // Add in an identifier for the on-click events
+  backButton.id = "score-buttons-0";
+  buttonSection.appendChild(backButton);
+
+  let clearButton = document.createElement("button");
+  clearButton.textContent = "Clear Highscores";
+  clearButton.classList = 'active-button';
+  // Add in an identifier for the on-click events
+  clearButton.id = "score-buttons-1";
+  buttonSection.appendChild(clearButton);
+
 }; // END showHighScore list function
 
 
