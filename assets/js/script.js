@@ -170,6 +170,44 @@ function showHighScorePage() {
 
 }; // END showHighScore list function
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+END THE FUNCTIONS I STILL NEED TO APPLY
+/~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+// Function to check if current score is greater than lowest score in highscore object,
+function checkHighScore() {
+
+};
+
+// Function to add the current score to the list of highscores if it passes the checkHighScore function
+function addHighScore() {
+
+}
+
+// Function to sort highscores object by order of score values
+function sortScores() {
+
+};
+
+// Function to grab existing ordered list of highscores, and publish each one as a list item in highScoresList
+function grabHighScores() {
+  localStorage.getItem("highScores");
+
+  Object.keys(highScores).forEach(key => {
+    let scoreEntry = document.createElement("li");
+    scoreEntry.textContent = key + " " + highScores[key];
+    highScoreList.appendChild(scoreEntry);
+  });
+  // Switch to the highscores screen
+  endGameScreen.textContent = '';
+  highscoresTitle.textContent = "Highscores";
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+END THE FUNCTIONS I STILL NEED to apply
+/~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
 
 
 // TIMER
