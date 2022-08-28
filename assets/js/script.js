@@ -53,16 +53,17 @@ var highScores = {};
 // Array to sort highscores from most to least
 var scoreSort = [];
 
-  // Go back button will reload the page keeping the high scores in tact
+// Go back button will reload the page keeping the high scores in tact
   function goBack() {
     location.reload();
   };
 
-  // Clear button will remove everything in local storage and clear the highscore list
+// Clear button will remove everything in local storage and clear the highscore list
  function clearScores() {
     localStorage.clear();
     highScoreList.textContent = '';
-  };
+};
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 // 2) *~QUESTIONS LIST~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -107,7 +108,14 @@ var submitScore = function () {
     score: score
   };
 
-  localStorage.setItem("lastScore", JSON.stringify(highScore));
+  var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray")) || [];
+  console.log("submitScore - retreived highScoresArray from localStorage" + highScoresArray);
+
+  highScoresArray.push(highScore);
+  console.log("submitScore - pushed highScore into highScoresArray" + highScoresArray);
+
+  localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
+
   showHighScorePage();
 
 };
@@ -130,11 +138,22 @@ function gameOver() {
   finalScore.textContent = "Your final score is: " + timeLeft;
   endTitleArea.appendChild(finalScore);
 
+
+
+
 }; // END Submit on click
 
 
 
+
 function showHighScorePage() {
+
+
+  var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
+
+  console.log("showHighScorePage - localStorage retrieved" + highScoresArray);
+
+
   // Hide the home screen if pressed from home
   startScreen.textContent = '';
   // Hide the quiz screen if pressed from screen
@@ -179,7 +198,7 @@ function timerScore() {
     timeLeft--;
     topTimer.textContent = "Time Left: " + timeLeft;
     if (timeLeft > 0) {
-      // Tests if win condition is met
+      // Tests if end condition is met
       if (questionsCounter === 6 && timeLeft > 0) {
         // Clears interval and stops timer
         clearInterval(timer);
