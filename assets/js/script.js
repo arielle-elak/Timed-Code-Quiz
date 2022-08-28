@@ -41,17 +41,16 @@ var initialsText = document.querySelector("#initials");
 
 
 // High score screen selectors
+
 var highscoreScreen = document.querySelector("#highscores-section");
 var highscoresTitle = document.querySelector("#highscores-title");
 var buttonSection = document.querySelector("#button-section");
 var highScoreList = document.querySelector("#highscores");
 var highestScores = [];
 
-// Local Storage Variables
-// Object to store all of the highscores in local data
-var highScores = {};
-// Array to sort highscores from most to least
-var scoreSort = [];
+// Local Storage Constants
+const highScoreAmount = 10;
+const highScores = 'highScores';
 
   // Go back button will reload the page keeping the high scores in tact
   function goBack() {
@@ -96,7 +95,7 @@ var questionsCounter = 0;
 // 3) *~FUNCTIONS~*
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-// When the submit button is pressed
+ // When the submit button is pressed
 var submitScore = function () {
   var initials = initialsText.value;
   var score = timeLeft;
@@ -118,7 +117,27 @@ var submitScore = function () {
   // Function to check if current score is greater than lowest score in highscore object,
   function checkHighScore() {
 
+    var highScores = JSON.parse(localStorage.getItem('highScores'));
+    // If the highScore object does not yet exist in local storage create an empty array
+    if (highScores === null) {
+      highScoresArr = [];
+      console.log("Created highScores array");
+      // Inject the current score and initials as an object in the array
+      highScoresArr[initials] = score;
+
+    };
+    console.log(highScoresArr);
+
+    for (var key of Object.keys(highScoresArr)) {
+      var newLi = document.createElement("li");
+      newLi.textContent = (key + ": " + highScoresArr[key]);
+      highScoreList.appendChild(newLi);
+  }
+
+
   };
+
+  checkHighScore();
 
   // Function to add the current score to the list of highscores if it passes the checkHighScore function
   function addHighScore() {
@@ -212,13 +231,6 @@ function showHighScorePage() {
 }; // END showHighScore list function
 
 
-
-
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-END THE FUNCTIONS I STILL NEED to apply
-/~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 
 
 // TIMER
