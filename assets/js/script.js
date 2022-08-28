@@ -171,10 +171,9 @@ function showHighScorePage() {
   // 2: Print each value of initials and score as a pair in a new list item in the highscores ordered list
   highScoresArray.forEach(function(entry) {
     const newLi = document.createElement('li');
-    newLi.text = entry.initials + entry.score;
+    newLi.textContent = entry.initials + ": " + entry.score;
     highScoreList.appendChild(newLi);
 })
-
 
 
 
