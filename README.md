@@ -4,7 +4,7 @@ Thank you for having a look at my timed quiz!
 
 You may view the live site here:
 
-https://arielle-elak.github.io/timed-code-quiz/
+https://arielle-elak.github.io/Timed-Code-Quiz/
 
 This is a timed quiz which utilizes vanilla Javascript and local storage to keep track of highscores.
 
